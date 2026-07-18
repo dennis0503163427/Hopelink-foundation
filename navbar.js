@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (currentUser) {
     // Aligned to the flattened root structure
-    const dashboardPath = "dashboard.html"; 
+    const dashboardPath = "Dashboard.html"; 
 
     authLinks = `
       <li><a href="${dashboardPath}" class="nav-link">Dashboard</a></li>
