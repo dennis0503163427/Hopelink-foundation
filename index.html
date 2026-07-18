@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home | HopeLink Foundation</title>
+  <!-- Google Fonts & FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Custom Home Page Specific Inline Styles for Easy Pasting */
+    .hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('hero-bg.jpg') no-repeat center center/cover;
+      height: 80vh;
+      color: var(--white);
+      text-align: center;
+    }
+    .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 20px; }
+    .hero p { font-size: 1.2rem; max-width: 600px; margin-bottom: 30px; }
+    .hero-btns { display: flex; gap: 20px; }
+
+    .stats-grid, .values-grid, .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .stat-card, .value-card, .news-card {
+      background: var(--white);
+      padding: 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      text-align: center;
+    }
+    .stat-card h2 { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px; }
+    
+    .news-card { text-align: left; padding: 0; overflow: hidden; }
+    .news-img { height: 200px; background: #ddd; }
+    .news-body { padding: 20px; }
+    .news-body h3 { margin-bottom: 10px; font-size: 1.2rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Navbar Injection Pointer -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- 1. HERO SECTION -->
+  <section class="hero flex-center">
+    <div class="container flex-center" style="flex-direction: column;">
+      <h1>Empowering Communities, Changing Lives</h1>
+      <p>HopeLink Foundation is dedicated to improving education, healthcare, and sustainable development across communities in Ghana.</p>
+      <div class="hero-btns">
+        <a href="services.html" class="btn-primary">Our Programs</a>
+        <a href="contact.html" class="btn-secondary">Get In Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. ABOUT & CORE VALUES SECTION -->
+  <section class="section-padding">
+    <div class="container">
+      <div style="text-align: center; max-width: 700px; margin: 0 auto 50px auto;">
+        <h2>Who We Are</h2>
+        <p style="color: var(--grey);">Building blocks of hope through impact-driven community actions.</p>
+      </div>
+      <div class="values-grid">
+        <div class="value-card">
+          <i class="fas fa-bullseye" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+          <h3>Our Mission</h3>
+          <p style="color: var(--grey); font-size: 0.9rem; mt: 10px;">To deliver sustainable development solutions in healthcare, youth mentorship, and quality education infrastructure.</p>
+        </div>
+        <div class="value-card">
+          <i class="fas fa-eye" style="font-size: 2rem; color: var(--secondary-color); margin-bottom: 15px;"></i>
+          <h3>Our Vision</h3>
+          <p style="color: var(--grey); font-size: 0.9rem; mt: 10px;">A self-reliant society where every individual has equitable access to vital resources and opportunities to thrive.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. ANIMATED STATISTICS SECTION -->
+  <section class="section-padding" style="background-color: var(--white);">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h2 class="counter" data-target="150">0</h2>
+          <p>Volunteers Registered</p>
+        </div>
+        <div class="stat-card">
+          <h2 class="counter" data-target="45">0</h2>
+          <p>Communities Served</p>
+        </div>
+        <div class="stat-card">
+          <h2 class="counter" data-target="32">0</h2>
+          <p>Projects Completed</p>
+        </div>
+        <div class="stat-card">
+          <h2 class="counter" data-target="8500">0</h2>
+          <p>Donations Received (GHS)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. LATEST NEWS SECTION -->
+  <section class="section-padding">
+    <div class="container">
+      <h2>Latest News & Articles</h2>
+      <div class="news-grid" id="featured-news-container">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Dynamic Footer Injection Pointer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Shared Global App Logic -->
+  <script src="main.js"></script>
+  <!-- Reusable Shared Layout Injections -->
+  <script src="navbar.js"></script>
+  <script src="footer.js"></script>
+
+  <script>
+    // Simple animated counters mechanism for Statistics section
+    document.addEventListener("DOMContentLoaded", () => {
+      const counters = document.querySelectorAll('.counter');
+      counters.forEach(counter => {
+        counter.innerText = '0';
+        const updateCounter = () => {
+          const target = +counter.getAttribute('data-target');
+          const count = +counter.innerText;
+          const increment = target / 30; // Speed modifier
+
+          if(count < target) {
+            counter.innerText = `${Math.ceil(count + increment)}`;
+            setTimeout(updateCounter, 30);
+          } else {
+            counter.innerText = target;
+          }
+        };
+        updateCounter();
+      });
+
+      // Pull latest blogs from localStorage database and render onto homepage cards
+      setTimeout(() => {
+        const blogs = getCollection("blogs") || [];
+        const container = document.getElementById("featured-news-container");
+        if (container && blogs.length > 0) {
+          container.innerHTML = blogs.slice(0, 3).map(post => `
+            <div class="news-card">
+              <div class="news-img" style="background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('${post.image || 'https://via.placeholder.com/400x200'}') center center/cover;"></div>
+              <div class="news-body">
+                <span style="font-size: 0.8rem; color: var(--primary-color); font-weight: 600;">${post.category}</span>
+                <h3 style="margin-top: 5px;">${post.title}</h3>
+                <p style="color: var(--grey); font-size: 0.9rem; margin-bottom: 15px;">${post.summary}</p>
+                <a href="blog.html" style="color: var(--secondary-color); font-weight: 600; font-size: 0.9rem;">Read More &rarr;</a>
+              </div>
+            </div>
+          `).join('');
+        }
+      }, 500); // Small timeout allows mainJS to initialize db array first
+    });
+  </script>
+</body>
+</html>

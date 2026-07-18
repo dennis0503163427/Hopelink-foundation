@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings | HopeLink Foundation</title>
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .settings-layout {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 15px;
+    }
+    .settings-section {
+      background: var(--white, #ffffff);
+      padding: 30px;
+      border-radius: var(--border-radius, 10px);
+      box-shadow: var(--box-shadow, 0 5px 15px rgba(0,0,0,.05));
+      margin-bottom: 25px;
+    }
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--light-grey, #e2e8f0);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title i {
+      color: var(--primary-color, #2e7d32);
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    .form-group input {
+      padding: 11px;
+      border: 1.5px solid var(--light-grey, #e2e8f0);
+      border-radius: 5px;
+      font-family: var(--font-main, 'Poppins', sans-serif);
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .form-group input:focus {
+      border-color: var(--primary-color, #2e7d32);
+    }
+    .toggle-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--light-grey, #e2e8f0);
+    }
+    .toggle-group:last-of-type {
+      border-bottom: none;
+    }
+    .toggle-info h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .toggle-info p {
+      font-size: 0.8rem;
+      color: var(--grey, #666);
+    }
+    /* Switch Style Toggle styling button */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 45px;
+      height: 24px;
+    }
+    .switch input { 
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #cbd5e1;
+      transition: .3s;
+      border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: var(--primary-color, #2e7d32);
+    }
+    input:checked + .slider:before {
+      transform: translateX(21px);
+    }
+    .btn-danger {
+      background-color: #dc2626;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: var(--font-main, 'Poppins', sans-serif);
+      transition: opacity 0.2s;
+    }
+    .btn-danger:hover {
+      opacity: 0.9;
+    }
+    
+    /* --- RESPONSIVE STRUCTURING --- */
+    @media (max-width: 600px) {
+      .settings-section {
+        padding: 20px 15px;
+      }
+      .toggle-group {
+        gap: 15px;
+      }
+      .toggle-info h4 {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Navbar Placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- SETTINGS INTERFACE CONTAINER -->
+  <main class="container">
+    <div class="settings-layout">
+      
+      <!-- SECTION 1: Change Password Security Panel -->
+      <section class="settings-section">
+        <h3 class="section-title"><i class="fas fa-lock"></i> Security & Password</h3>
+        <form id="password-settings-form">
+          <div class="form-group">
+            <label for="current-password">Current Password</label>
+            <input type="password" id="current-password" required placeholder="Enter current password">
+          </div>
+          <div class="form-group">
+            <label for="new-password">New Password</label>
+            <input type="password" id="new-password" required placeholder="Minimum 8 characters">
+          </div>
+          <div class="form-group">
+            <label for="confirm-new-password">Confirm New Password</label>
+            <input type="password" id="confirm-new-password" required placeholder="Repeat new password">
+          </div>
+          <button type="submit" class="btn-primary" style="margin-top: 10px; padding: 10px 20px;">Update Password</button>
+        </form>
+      </section>
+
+      <!-- SECTION 2: Notification Toggles & Customization Preferences -->
+      <section class="settings-section">
+        <h3 class="section-title"><i class="fas fa-bell"></i> Preferences & Alerts</h3>
+        
+        <div class="toggle-group">
+          <div class="toggle-info">
+            <h4>Email Notifications</h4>
+            <p>Receive updates about volunteer events and newsletter metrics.</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="notify-email" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-group">
+          <div class="toggle-info">
+            <h4>Dark Mode Theme</h4>
+            <p>Switch view interface illumination balance parameters locally.</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- SECTION 3: Session Exits & Data Clearance Controls -->
+      <section class="settings-section" style="border: 1.5px solid #fecaca; background-color: #fef2f2;">
+        <h3 class="section-title" style="color: #991b1b; border-bottom-color: #fca5a5;">
+          <i class="fas fa-exclamation-triangle" style="color: #dc2626;"></i> Account Control Actions
+        </h3>
+        <p style="font-size: 0.85rem; color: #7f1d1d; margin-bottom: 15px;">
+          Log out cleanly from this machine or completely delete the user data record array context permanently from the local device storage.
+        </p>
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+          <button id="btn-session-logout" class="btn-primary" style="background-color: #475569; padding: 10px 15px;">Log Out</button>
+          <button id="btn-delete-account" class="btn-danger">Delete Account Context</button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Dynamic Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Route Protection & Settings Sync Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const passwordForm = document.getElementById("password-settings-form");
+      const logoutBtn = document.getElementById("btn-session-logout");
+      const deleteBtn = document.getElementById("btn-delete-account");
+
+      // Verify Session Status Authentication
+      let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+      if (!currentUser) {
+        alert("Access denied. Please log in.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      // 1. Password Modification Sync Flow
+      passwordForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        
+        const currentPass = document.getElementById("current-password").value;
+        const newPass = document.getElementById("new-password").value;
+        const confirmNew = document.getElementById("confirm-new-password").value;
+
+        // Check password matching record parameters
+        if (currentPass !== currentUser.password) {
+          alert("Error: Current password entry does not match records.");
+          return;
+        }
+
+        if (newPass !== confirmNew) {
+          alert("Error: New password fields do not match.");
+          return;
+        }
+
+        if (newPass.length < 8) {
+          alert("Error: Password must be at least 8 characters long.");
+          return;
+        }
+
+        // Sync local variables & storage master database arrays updates 
+        currentUser.password = newPass;
+        const allUsers = JSON.parse(localStorage.getItem("hl_users")) || [];
+        const userIndex = allUsers.findIndex(u => u.username === currentUser.username);
+
+        if (userIndex !== -1) {
+          allUsers[userIndex].password = newPass;
+          localStorage.setItem("hl_users", JSON.stringify(allUsers));
+          localStorage.setItem("currentUser", JSON.stringify(currentUser));
+          alert("Password security details updated successfully!");
+          passwordForm.reset();
+        }
+      });
+
+      // 2. Log Out Event Handling
+      logoutBtn.addEventListener("click", () => {
+        localStorage.removeItem("currentUser");
+        alert("Session cleared securely. Goodbye!");
+        window.location.href = "login.html";
+      });
+
+      // 3. Purge Profile Account Storage Process 
+      deleteBtn.addEventListener("click", () => {
+        const confirmPurge = confirm("Warning! Are you completely sure you want to permanently delete your account from this system data store?");
+        if (confirmPurge) {
+          const allUsers = JSON.parse(localStorage.getItem("hl_users")) || [];
+          const customFilterList = allUsers.filter(u => u.username !== currentUser.username);
+          
+          localStorage.setItem("hl_users", JSON.stringify(customFilterList));
+          localStorage.removeItem("currentUser");
+          
+          alert("Your account records have been successfully wiped clean.");
+          window.location.href = "signup.html";
+        }
+      });
+    });
+  </script>
+
+  <!-- Navigation and Footer Component Injections Layout Loader -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Dynamic Navbar Inline Implementation
+      const navPlaceholder = document.getElementById("navbar-placeholder");
+      if (navPlaceholder) {
+        navPlaceholder.innerHTML = `
+          <nav class="navbar">
+            <div class="nav-logo">
+              <a href="index.html">
+                <span class="logo-text">HopeLink</span><span class="logo-sub">Foundation</span>
+              </a>
+            </div>
+            <ul class="nav-links" id="nav-links">
+              <li><a href="index.html" class="nav-link">Home</a></li>
+              <li><a href="about.html" class="nav-link">About Us</a></li>
+              <li><a href="services.html" class="nav-link">Programs</a></li>
+              <li><a href="events.html" class="nav-link">Events</a></li>
+              <li><a href="blog.html" class="nav-link">Blog</a></li>
+              <li><a href="contact.html" class="nav-link">Contact</a></li>
+              <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+              <li><a href="#" id="nav-logout-btn" class="nav-btn logout-btn">Logout</a></li>
+            </ul>
+          </nav>
+        `;
+        
+        document.getElementById("nav-logout-btn").addEventListener("click", (e) => {
+          e.preventDefault();
+          localStorage.removeItem("currentUser");
+          alert("Logged out successfully!");
+          window.location.href = "index.html";
+        });
+      }
+
+      // Dynamic Footer Inline Implementation
+      const footerPlaceholder = document.getElementById("footer-placeholder");
+      if (footerPlaceholder) {
+        footerPlaceholder.innerHTML = `
+          <footer class="main-footer">
+            <div class="footer-grid">
+              <div class="footer-brand">
+                <h3>HopeLink Foundation</h3>
+                <p>Empowering communities in Ghana through sustainable education, healthcare, and development.</p>
+              </div>
+              <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Tamale, Northern Region, Ghana</p>
+                <p><i class="fas fa-phone"></i> +233 55 299 4899</p>
+              </div>
+            </div>
+            <div class="footer-bottom">
+              <p>&copy; 2026 HopeLink Foundation. All Rights Reserved.</p>
+            </div>
+          </footer>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>

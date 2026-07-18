@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | HopeLink Foundation</title>
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .auth-container {
+      max-width: 450px;
+      margin: 60px auto;
+      background: var(--white, #ffffff);
+      padding: 40px;
+      border-radius: var(--border-radius, 10px);
+      box-shadow: var(--box-shadow, 0 5px 15px rgba(0,0,0,.05));
+    }
+    .auth-title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .form-group label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    .form-group input {
+      padding: 12px;
+      border: 1.5px solid var(--light-grey, #e2e8f0);
+      border-radius: 5px;
+      font-family: var(--font-main, 'Poppins', sans-serif);
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition, 0.2s ease);
+      width: 100%;
+    }
+    .form-group input:focus {
+      border-color: var(--primary-color, #2e7d32);
+    }
+    /* Show/Hide Password Icon wrapper */
+    .password-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .toggle-password {
+      position: absolute;
+      right: 15px;
+      top: 42px; /* Centered perfectly over input field layout */
+      cursor: pointer;
+      color: var(--grey, #666);
+    }
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      margin-bottom: 25px;
+    }
+    .error-msg {
+      color: var(--error-color, #dc2626);
+      font-size: 0.85rem;
+      text-align: center;
+      margin-bottom: 15px;
+      display: none;
+    }
+    /* Loading Spinner Styling */
+    .spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: var(--white, #ffffff);
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 10px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .btn-login {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 12px;
+      font-weight: 600;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* --- RESPONSIVE PHONE FIXES --- */
+    @media (max-width: 480px) {
+      .auth-container {
+        margin: 30px 15px;
+        padding: 25px 20px;
+      }
+      .form-options {
+        flex-direction: row;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Navbar -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- LOGIN FORM -->
+  <main class="container">
+    <div class="auth-container">
+      <div class="auth-title">
+        <h2>Welcome Back</h2>
+        <p style="color: var(--grey, #666);">Log in to manage your HopeLink profile</p>
+      </div>
+
+      <div class="error-msg" id="login-error">Invalid email or password. Please try again.</div>
+
+      <form id="login-form">
+        <!-- Email Field -->
+        <div class="form-group">
+          <label for="login-email">Email Address</label>
+          <input type="email" id="login-email" required placeholder="you@example.com">
+        </div>
+
+        <!-- Password Field with Show/Hide Toggle -->
+        <div class="form-group password-wrapper">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" required placeholder="••••••••">
+          <i class="far fa-eye toggle-password" id="togglePassword"></i>
+        </div>
+
+        <!-- Remember Me & Forgot Password -->
+        <div class="form-options">
+          <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+            <input type="checkbox" id="remember-me"> Remember Me
+          </label>
+          <a href="#" id="forgot-password-link" style="color: var(--primary-color, #2e7d32); font-weight: 500; text-decoration: none;">Forgot Password?</a>
+        </div>
+
+        <!-- Login Button with Loading Spinner -->
+        <button type="submit" class="btn-primary btn-login" id="login-submit-btn">
+          <div class="spinner" id="login-spinner"></div>
+          <span id="login-btn-text">Log In</span>
+        </button>
+      </form>
+
+      <p style="text-align: center; margin-top: 25px; font-size: 0.9rem;">
+        Don't have an account? <a href="signup.html" style="color: var(--primary-color, #2e7d32); font-weight: 600; text-decoration: none;">Sign Up</a>
+      </p>
+    </div>
+  </main>
+
+  <!-- Dynamic Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="main.js"></script>
+  <script src="navbar.js"></script>
+  <script src="footer.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const loginForm = document.getElementById("login-form");
+      const passwordInput = document.getElementById("login-password");
+      const togglePassword = document.getElementById("togglePassword");
+      const emailInput = document.getElementById("login-email");
+      const rememberCheckbox = document.getElementById("remember-me");
+      
+      const loginError = document.getElementById("login-error");
+      const submitBtn = document.getElementById("login-submit-btn");
+      const spinner = document.getElementById("login-spinner");
+      const btnText = document.getElementById("login-btn-text");
+
+      // Shared key fallback matching the signup page storage structure
+      const getCollection = (key) => JSON.parse(localStorage.getItem(`hl_${key}`)) || [];
+
+      // Fill in email if "Remember Me" was checked previously
+      if (localStorage.getItem("rememberedEmail")) {
+        emailInput.value = localStorage.getItem("rememberedEmail");
+        rememberCheckbox.checked = true;
+      }
+
+      // Show/Hide Password Toggle Functionality
+      togglePassword.addEventListener("click", () => {
+        const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+        passwordInput.setAttribute("type", type);
+        togglePassword.classList.toggle("fa-eye-slash");
+      });
+
+      // Handle Form Submit
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        // ==========================================
+        // 1. HARDCODED MASTER ADMIN ROUTING CHECK
+        // ==========================================
+        if (email === "admin@hopelink.org" && password === "AdminPass123!") {
+          loginError.style.display = "none";
+          
+          if (rememberCheckbox.checked) {
+            localStorage.setItem("rememberedEmail", email);
+          } else {
+            localStorage.removeItem("rememberedEmail");
+          }
+
+          // Trigger Admin Loading Animation
+          submitBtn.disabled = true;
+          spinner.style.display = "block";
+          btnText.innerText = "Verifying Admin...";
+
+          setTimeout(() => {
+            const adminSession = {
+              id: 'u_admin',
+              firstName: "System",
+              lastName: "Administrator",
+              username: "master_admin",
+              email: "admin@hopelink.org",
+              role: "admin", // Explicit administrative role authorization flag
+              region: "Greater Accra",
+              country: "Ghana"
+            };
+            
+            // Write session parameters and redirect directly to Admin Control Panel
+            localStorage.setItem("currentUser", JSON.stringify(adminSession));
+            alert("Administrative Access Granted. Welcome back!");
+            window.location.href = "Admin.html"; 
+          }, 1500);
+          
+          return; // Prevents the code block below from running
+        }
+
+        // ==========================================
+        // 2. STANDARD USER AUTHENTICATION CHECK
+        // ==========================================
+        const users = getCollection("users");
+        const foundUser = users.find(u => u.email === email && u.password === password);
+
+        if (foundUser) {
+          loginError.style.display = "none";
+          
+          if (rememberCheckbox.checked) {
+            localStorage.setItem("rememberedEmail", email);
+          } else {
+            localStorage.removeItem("rememberedEmail");
+          }
+
+          // Trigger Regular Loading Animation
+          submitBtn.disabled = true;
+          spinner.style.display = "block";
+          btnText.innerText = "Verifying...";
+
+          setTimeout(() => {
+            // Write current user session details to storage
+            localStorage.setItem("currentUser", JSON.stringify(foundUser));
+            
+            alert(`Welcome back, ${foundUser.firstName}!`);
+            window.location.href = "Dashboard.html";
+          }, 1500);
+
+        } else {
+          // Display mismatch error state
+          loginError.style.display = "block";
+        }
+      });
+
+      // Simple mock interaction for forgot password
+      document.getElementById("forgot-password-link").addEventListener("click", (e) => {
+        e.preventDefault();
+        alert("A password reset flow simulation link has been sent to your registered email address.");
+      });
+    });
+  </script>
+</body>
+</html>

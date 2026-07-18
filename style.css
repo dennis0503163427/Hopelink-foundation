@@ -1,0 +1,401 @@
+/* ==========================================================================
+   1. GLOBAL VARIABLES & THEME SETUP
+   ========================================================================== */
+:root {
+  /* Color Palette */
+  --primary-color: #2e7d32;     /* Forest Green (Ghana Environment/Growth focus) */
+  --primary-light: #4caf50;
+  --secondary-color: #1565c0;   /* Trust Blue (Healthcare & Education focus) */
+  --dark-color: #1a1a1a;
+  --light-color: #f8f9fa;
+  --white: #ffffff;
+  --grey: #6c757d;
+  --light-grey: #e0e0e0;
+  --error-color: #d32f2f;
+  --success-color: #2e7d32;
+  --warning-color: #fbc02d;
+
+  /* Typography */
+  --font-main: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  /* Layout Standards */
+  --max-width: 1200px;
+  --border-radius: 8px;
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --header-height: 70px;
+}
+
+/* Dark Mode Variables Override */
+body.dark-theme {
+  --light-color: #121212;
+  --white: #1e1e1e;
+  --dark-color: #f8f9fa;
+  --grey: #b0bec5;
+  --light-grey: #333333;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+   2. RESET & BASE STYLES
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button, .btn, .btn-primary, .btn-secondary {
+  font-family: var(--font-main);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: var(--transition);
+  display: inline-block;
+  text-align: center;
+}
+
+/* Form Element Theme Adjustments */
+input, select, textarea {
+  background-color: var(--white);
+  color: var(--dark-color);
+  border: 1.5px solid var(--light-grey);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* ==========================================================================
+   3. REUSABLE UTILITIES
+   ========================================================================== */
+.container {
+  width: 90%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.section-padding {
+  padding: 80px 0;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Base Buttons */
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #ffffff; /* Lock white text independently of theme changes */
+  padding: 12px 24px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+}
+
+.btn-secondary:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   4. NAVIGATION BAR (Dynamic Header)
+   ========================================================================== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+  height: var(--header-height);
+  background-color: var(--white);
+  box-shadow: var(--box-shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-logo .logo-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary-color);
+}
+
+.nav-logo .logo-sub {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--secondary-color);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-link {
+  font-weight: 500;
+  padding: 8px 12px;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+/* Auth Action Buttons in Navbar */
+.nav-btn {
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.login-btn {
+  border: 1.5px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.login-btn:hover {
+  background-color: var(--primary-color);
+  color: #ffffff;
+}
+
+.signup-btn {
+  background-color: var(--primary-color);
+  color: #ffffff;
+}
+
+.signup-btn:hover {
+  background-color: var(--primary-light);
+}
+
+.logout-btn {
+  background-color: var(--error-color);
+  color: #ffffff;
+}
+
+.logout-btn:hover {
+  opacity: 0.9;
+}
+
+/* Hamburger Mobile Toggle */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.hamburger .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: var(--dark-color);
+  transition: var(--transition);
+}
+
+/* ==========================================================================
+   5. DYNAMIC FOOTER SYSTEM
+   ========================================================================== */
+.main-footer {
+  background-color: #111111;
+  color: #ffffff;
+  padding: 60px 5% 20px 5%;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-brand h3 {
+  color: var(--primary-light);
+  margin-bottom: 15px;
+}
+
+.footer-brand p {
+  color: #cccccc;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icons a {
+  background-color: #222222;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+}
+
+.social-icons a:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-3px);
+}
+
+.footer-links h4, .footer-contact h4, .footer-newsletter h4 {
+  position: relative;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.footer-links h4::after, .footer-contact h4::after, .footer-newsletter h4::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 40px;
+  height: 2px;
+  background-color: var(--primary-color);
+}
+
+.footer-links ul li {
+  margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+  color: #cccccc;
+  font-size: 0.9rem;
+}
+
+.footer-links ul li a:hover {
+  color: var(--primary-light);
+  padding-left: 5px;
+}
+
+.footer-contact p {
+  color: #cccccc;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-newsletter p {
+  color: #cccccc;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.newsletter-form {
+  display: flex;
+}
+
+.newsletter-form input {
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 5px 0 0 5px;
+  width: 100%;
+  background-color: #ffffff;
+  color: #1a1a1a;
+}
+
+.btn-subscribe {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  padding: 10px 15px;
+  border-radius: 0 5px 5px 0;
+  font-weight: 600;
+}
+
+.btn-subscribe:hover {
+  background-color: var(--primary-light);
+}
+
+.footer-bottom {
+  border-top: 1px solid #222222;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #888888;
+}
+
+/* ==========================================================================
+   6. RESPONSIVE MEDIA QUERIES
+   ========================================================================== */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: var(--header-height);
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - var(--header-height));
+    background-color: var(--white);
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 0;
+    gap: 30px;
+    transition: 0.4s ease;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  }
+
+  .nav-links.active {
+    left: 0;
+  }
+
+  /* Hamburger Animation */
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}

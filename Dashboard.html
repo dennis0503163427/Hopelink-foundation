@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard | HopeLink Foundation</title>
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 30px;
+      margin: 40px auto;
+    }
+    @media (max-width: 992px) {
+      .dashboard-layout { grid-template-columns: 1fr; }
+    }
+    .profile-card {
+      background: var(--white);
+      padding: 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      text-align: center;
+      height: fit-content;
+    }
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: var(--light-grey);
+      margin: 0 auto 15px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3rem;
+      color: var(--grey);
+      overflow: hidden;
+    }
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .stat-overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .db-stat-card {
+      background: var(--white);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .db-stat-icon {
+      font-size: 2rem;
+      color: var(--primary-color);
+      background-color: rgba(46, 125, 50, 0.1);
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .db-stat-info h3 { font-size: 1.5rem; line-height: 1.1; }
+    .db-stat-info p { font-size: 0.85rem; color: var(--grey); }
+    
+    .dashboard-content-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 30px;
+    }
+    @media (max-width: 768px) {
+      .dashboard-content-grid { grid-template-columns: 1fr; }
+    }
+    .panel {
+      background: var(--white);
+      padding: 25px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      margin-bottom: 30px;
+    }
+    .panel h3 { margin-bottom: 20px; border-bottom: 2px solid var(--light-grey); padding-bottom: 10px; }
+    
+    .activity-item {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px dashed var(--light-grey);
+    }
+    .activity-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Navbar Pointer -->
+  <div id="navbar-placeholder"></div>
+
+  <main class="container">
+    <div class="dashboard-layout">
+      
+      <!-- 1. LEFT COLUMN: USER PROFILE CARD -->
+      <aside class="profile-card">
+        <div class="profile-avatar" id="db-avatar">
+          <i class="fas fa-user"></i>
+        </div>
+        <h2 id="db-user-fullname">Loading...</h2>
+        <p id="db-user-username" style="color: var(--grey); font-size: 0.9rem; margin-bottom: 15px;">@username</p>
+        <span id="db-user-badge" style="background-color: var(--primary-light); color: var(--white); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">Member</span>
+        
+        <div style="text-align: left; margin-top: 25px; border-top: 1px solid var(--light-grey); padding-top: 20px;">
+          <p style="font-size: 0.85rem; margin-bottom: 8px;"><strong>Email:</strong> <span id="db-email">-</span></p>
+          <p style="font-size: 0.85rem; margin-bottom: 8px;"><strong>Phone:</strong> <span id="db-phone">-</span></p>
+          <p style="font-size: 0.85rem; margin-bottom: 8px;"><strong>Region:</strong> <span id="db-region">-</span></p>
+        </div>
+        
+        <a href="profile.html" class="btn-primary" style="display: block; width: 100%; margin-top: 20px; padding: 10px; font-size: 0.9rem;">Edit Profile</a>
+      </aside>
+
+      <!-- 2. RIGHT COLUMN: MAIN CONTENT & STATS -->
+      <section class="dashboard-main">
+        <!-- Welcome Message Banner -->
+        <div class="panel" style="background: linear-gradient(135deg, var(--primary-color), #1b5e20); color: var(--white);">
+          <h2 id="db-welcome-heading" style="font-size: 1.8rem; font-weight: 700;">Hello, User!</h2>
+          <p style="opacity: 0.9;">Welcome to your HopeLink dashboard. Here, you can coordinate your donations, review pending volunteer applications, and join upcoming community initiatives.</p>
+        </div>
+
+        <!-- Metric Stat Cards Row -->
+        <div class="stat-overview-grid">
+          <div class="db-stat-card">
+            <div class="db-stat-icon"><i class="fas fa-hand-holding-heart"></i></div>
+            <div class="db-stat-info">
+              <h3 id="stat-donations">0</h3>
+              <p>Donations (GHS)</p>
+            </div>
+          </div>
+          <div class="db-stat-card">
+            <div class="db-stat-icon" style="color: var(--secondary-color); background-color: rgba(21, 101, 192, 0.1);"><i class="fas fa-file-signature"></i></div>
+            <div class="db-stat-info">
+              <h3 id="stat-applications">0</h3>
+              <p>Volunteer Applications</p>
+            </div>
+          </div>
+          <div class="db-stat-card">
+            <div class="db-stat-icon" style="color: var(--warning-color); background-color: rgba(251, 192, 45, 0.1);"><i class="fas fa-calendar-alt"></i></div>
+            <div class="db-stat-info">
+              <h3 id="stat-events">0</h3>
+              <p>Upcoming Events</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inner Content Grid (Activities vs. Notifications) -->
+        <div class="dashboard-content-grid">
+          <!-- Recent Activities Panel -->
+          <div class="panel">
+            <h3>Recent Activities</h3>
+            <div id="activities-container">
+              <!-- Dynamically populated activity logs -->
+              <div class="activity-item">
+                <i class="fas fa-check-circle" style="color: var(--success-color); font-size: 1.2rem; margin-top: 3px;"></i>
+                <div>
+                  <p style="font-weight: 600; font-size: 0.9rem;">Account successfully registered</p>
+                  <p style="color: var(--grey); font-size: 0.75rem;">Your registration has been processed in our mock database.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notifications Panel -->
+          <div class="panel">
+            <h3>Notifications</h3>
+            <div class="activity-item">
+              <i class="fas fa-bell" style="color: var(--warning-color); font-size: 1.2rem; margin-top: 3px;"></i>
+              <div>
+                <p style="font-weight: 600; font-size: 0.9rem;">Welcome to HopeLink</p>
+                <p style="color: var(--grey); font-size: 0.75rem;">Explore our events page and consider signing up to make a difference.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- Dynamic Footer Pointer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Route Protection & Dashboard Setup Script -->
+  <script>
+    // 1. ROUTE PROTECTION: Check if user is authenticated before page renders
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser) {
+      alert("Unauthorized Access! Please login first.");
+      window.location.href = "login.html";
+    }
+
+    // Helper functions to mimic getCollection
+    function getDbCollection(collectionName) {
+      const db = JSON.parse(localStorage.getItem("hl_database"));
+      return db ? db[collectionName] : [];
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (!currentUser) return;
+
+      // 2. PROFILE INJECTION
+      document.getElementById("db-user-fullname").innerText = `${currentUser.firstName} ${currentUser.lastName}`;
+      document.getElementById("db-user-username").innerText = `@${currentUser.username}`;
+      document.getElementById("db-welcome-heading").innerText = `Hello, ${currentUser.firstName}!`;
+      document.getElementById("db-email").innerText = currentUser.email;
+      document.getElementById("db-phone").innerText = currentUser.phoneNumber;
+      document.getElementById("db-region").innerText = currentUser.region;
+
+      if (currentUser.role === "admin") {
+        const badge = document.getElementById("db-user-badge");
+        badge.innerText = "Administrator";
+        badge.style.backgroundColor = "var(--secondary-color)";
+      }
+
+      if (currentUser.profilePic) {
+        document.getElementById("db-avatar").innerHTML = `<img src="${currentUser.profilePic}" alt="avatar">`;
+      }
+
+      // 3. RETRIEVE STATISTICS AND COUNTS
+      const donations = getDbCollection("donations") || [];
+      const volunteers = getDbCollection("volunteers") || [];
+      const events = getDbCollection("events") || [];
+
+      // Filter statistics specific to our logged-in user
+      const userDonations = donations.filter(d => d.userId === currentUser.id);
+      const userApplications = volunteers.filter(v => v.userId === currentUser.id);
+
+      // Sum user's donations
+      const donationSum = userDonations.reduce((sum, current) => sum + current.amount, 0);
+
+      // Inject values
+      document.getElementById("stat-donations").innerText = donationSum > 0 ? `${donationSum} GHS` : "0";
+      document.getElementById("stat-applications").innerText = userApplications.length;
+      document.getElementById("stat-events").innerText = events.length;
+
+      // 4. INJECT ACTIVITIES IF USER HAS DONATED
+      const activitiesContainer = document.getElementById("activities-container");
+      userDonations.forEach(donation => {
+        const actDiv = document.createElement("div");
+        actDiv.className = "activity-item";
+        actDiv.innerHTML = `
+          <i class="fas fa-donate" style="color: var(--primary-color); font-size: 1.2rem; margin-top: 3px;"></i>
+          <div>
+            <p style="font-weight: 600; font-size: 0.9rem;">Donated ${donation.amount} GHS</p>
+            <p style="color: var(--grey); font-size: 0.75rem;">Payment completed via ${donation.paymentMethod} on ${donation.date}.</p>
+          </div>
+        `;
+        activitiesContainer.prepend(actDiv);
+      });
+    });
+  </script>
+
+  <!-- Navigation and Footer Components Layout Loader -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Load Navbar
+      const navPlaceholder = document.getElementById("navbar-placeholder");
+      if (navPlaceholder) {
+        let authBtn = `
+          <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
+          <li><a href="#" id="logout-btn" class="nav-btn logout-btn">Logout</a></li>
+        `;
+        navPlaceholder.innerHTML = `
+          <nav class="navbar">
+            <div class="nav-logo">
+              <a href="index.html">
+                <span class="logo-text">HopeLink</span><span class="logo-sub">Foundation</span>
+              </a>
+            </div>
+            <ul class="nav-links" id="nav-links">
+              <li><a href="index.html" class="nav-link">Home</a></li>
+              <li><a href="about.html" class="nav-link">About Us</a></li>
+              <li><a href="services.html" class="nav-link">Programs</a></li>
+              <li><a href="events.html" class="nav-link">Events</a></li>
+              <li><a href="blog.html" class="nav-link">Blog</a></li>
+              <li><a href="contact.html" class="nav-link">Contact</a></li>
+              ${authBtn}
+            </ul>
+          </nav>
+        `;
+        
+        // Handle logout actions
+        document.getElementById("logout-btn").addEventListener("click", (e) => {
+          e.preventDefault();
+          localStorage.removeItem("currentUser");
+          alert("Logged out successfully!");
+          window.location.href = "index.html";
+        });
+      }
+
+      // Load Footer
+      const footerPlaceholder = document.getElementById("footer-placeholder");
+      if (footerPlaceholder) {
+        footerPlaceholder.innerHTML = `
+          <footer class="main-footer">
+            <div class="footer-grid">
+              <div class="footer-brand">
+                <h3>HopeLink Foundation</h3>
+                <p>Empowering communities in Ghana through sustainable education, healthcare, and development.</p>
+              </div>
+              <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Tamale, Northern Region, Ghana</p>
+                <p><i class="fas fa-phone"></i> +233 55 299 4899</p>
+              </div>
+            </div>
+            <div class="footer-bottom">
+              <p>&copy; 2026 HopeLink Foundation. All Rights Reserved.</p>
+            </div>
+          </footer>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>

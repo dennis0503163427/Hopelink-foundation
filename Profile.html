@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile | HopeLink Foundation</title>
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Main Stylesheet (Updated to flat root pathing) -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .profile-layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 30px;
+      margin: 40px auto;
+      max-width: 1000px;
+      padding: 0 15px;
+    }
+    .profile-card, .profile-edit-box {
+      background: var(--white, #ffffff);
+      padding: 30px;
+      border-radius: var(--border-radius, 10px);
+      box-shadow: var(--box-shadow, 0 5px 15px rgba(0,0,0,.05));
+    }
+    .profile-card {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .avatar-container {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin-bottom: 20px;
+    }
+    .profile-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary-color, #2e7d32);
+    }
+    .profile-name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .profile-role {
+      font-size: 0.85rem;
+      color: var(--white, #ffffff);
+      background: var(--primary-color, #2e7d32);
+      padding: 3px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .info-list {
+      width: 100%;
+      text-align: left;
+      border-top: 1px solid var(--light-grey, #e2e8f0);
+      padding-top: 15px;
+    }
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+      color: var(--grey, #666);
+    }
+    .info-item i {
+      color: var(--primary-color, #2e7d32);
+      width: 20px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    .form-group input, .form-group select {
+      padding: 10px;
+      border: 1.5px solid var(--light-grey, #e2e8f0);
+      border-radius: 5px;
+      font-family: var(--font-main, 'Poppins', sans-serif);
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--primary-color, #2e7d32);
+    }
+    .form-full-width {
+      grid-column: 1 / -1;
+    }
+    .section-title {
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--light-grey, #e2e8f0);
+    }
+
+    /* --- RESPONSIVE LAYOUT FIXES --- */
+    @media (max-width: 768px) {
+      .profile-layout {
+        grid-template-columns: 1fr;
+        margin: 20px auto;
+        gap: 20px;
+      }
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      .profile-card, .profile-edit-box {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Navbar Placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+    <div class="profile-layout">
+      
+      <!-- LEFT: Profile Overview Card -->
+      <aside class="profile-card">
+        <div class="avatar-container">
+          <img src="https://ui-avatars.com/api/?name=User&background=2e7d32&color=fff&size=128" alt="Profile Picture" class="profile-avatar" id="card-avatar">
+        </div>
+        <h3 class="profile-name" id="card-fullname">Loading Name...</h3>
+        <span class="profile-role" id="card-role">User</span>
+        
+        <div class="info-list">
+          <div class="info-item">
+            <i class="fas fa-user"></i>
+            <span id="card-username">@username</span>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-envelope"></i>
+            <span id="card-email">email@example.com</span>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-phone"></i>
+            <span id="card-phone">N/A</span>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span id="card-location">Ghana</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT: Profile Edit Settings Form -->
+      <section class="profile-edit-box">
+        <h2 class="section-title">Account Settings</h2>
+        
+        <form id="profile-form">
+          <div class="form-grid">
+            <!-- First Name -->
+            <div class="form-group">
+              <label for="prof-firstName">First Name</label>
+              <input type="text" id="prof-firstName" required>
+            </div>
+            <!-- Last Name -->
+            <div class="form-group">
+              <label for="prof-lastName">Last Name</label>
+              <input type="text" id="prof-lastName" required>
+            </div>
+            <!-- Username (Read Only) -->
+            <div class="form-group">
+              <label for="prof-username">Username</label>
+              <input type="text" id="prof-username" disabled style="background-color: #f1f5f9; cursor: not-allowed;">
+            </div>
+            <!-- Email -->
+            <div class="form-group">
+              <label for="prof-email">Email Address</label>
+              <input type="email" id="prof-email" required>
+            </div>
+            <!-- Phone Number -->
+            <div class="form-group">
+              <label for="prof-phone">Phone Number</label>
+              <input type="tel" id="prof-phone" required>
+            </div>
+            <!-- Region -->
+            <div class="form-group">
+              <label for="prof-region">Region</label>
+              <select id="prof-region" required>
+                <option value="Northern">Northern</option>
+                <option value="Greater Accra">Greater Accra</option>
+                <option value="Ashanti">Ashanti</option>
+                <option value="Western">Western</option>
+                <option value="Eastern">Eastern</option>
+                <option value="Volta">Volta</option>
+              </select>
+            </div>
+            
+            <!-- Submit Button Trigger -->
+            <div class="form-group form-full-width" style="margin-top: 10px;">
+              <button type="submit" class="btn-primary" style="padding: 12px; font-weight: 600; width: fit-content; min-width: 150px;">Save Changes</button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Dynamic Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Route Protection & Profile Sync Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Elements targeting left card view
+      const cardFullname = document.getElementById("card-fullname");
+      const cardUsername = document.getElementById("card-username");
+      const cardEmail = document.getElementById("card-email");
+      const cardPhone = document.getElementById("card-phone");
+      const cardLocation = document.getElementById("card-location");
+      const cardAvatar = document.getElementById("card-avatar");
+      const cardRole = document.getElementById("card-role");
+
+      // Elements targeting input fields form
+      const form = document.getElementById("profile-form");
+      const inputFirst = document.getElementById("prof-firstName");
+      const inputLast = document.getElementById("prof-lastName");
+      const inputUsername = document.getElementById("prof-username");
+      const inputEmail = document.getElementById("prof-email");
+      const inputPhone = document.getElementById("prof-phone");
+      const inputRegion = document.getElementById("prof-region");
+
+      // Load session details
+      let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+      if (!currentUser) {
+        alert("Access Denied. Please log in first.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      // Populate interface data indicators
+      function populateProfileData() {
+        cardFullname.innerText = `${currentUser.firstName} ${currentUser.lastName}`;
+        cardUsername.innerText = `@${currentUser.username}`;
+        cardEmail.innerText = currentUser.email;
+        cardPhone.innerText = currentUser.phoneNumber || "N/A";
+        cardLocation.innerText = `${currentUser.region || 'Northern'}, Ghana`;
+        cardRole.innerText = currentUser.role || "User";
+
+        if(currentUser.firstName) {
+          cardAvatar.src = `https://ui-avatars.com/api/?name=${currentUser.firstName}+${currentUser.lastName}&background=2e7d32&color=fff&size=128`;
+        }
+
+        // Fill Input Fields
+        inputFirst.value = currentUser.firstName;
+        inputLast.value = currentUser.lastName;
+        inputUsername.value = currentUser.username;
+        inputEmail.value = currentUser.email;
+        inputPhone.value = currentUser.phoneNumber || "";
+        inputRegion.value = currentUser.region || "Northern";
+      }
+
+      populateProfileData();
+
+      // Handle Form Changes Update Sequence
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        currentUser.firstName = inputFirst.value.trim();
+        currentUser.lastName = inputLast.value.trim();
+        currentUser.email = inputEmail.value.trim();
+        currentUser.phoneNumber = inputPhone.value.trim();
+        currentUser.region = inputRegion.value;
+
+        // Synchronize into localized array database state tracking
+        const allUsers = JSON.parse(localStorage.getItem("hl_users")) || [];
+        const updateIndex = allUsers.findIndex(u => u.username === currentUser.username);
+
+        if (updateIndex !== -1) {
+          allUsers[updateIndex] = { ...allUsers[updateIndex], ...currentUser };
+          localStorage.setItem("hl_users", JSON.stringify(allUsers));
+          localStorage.setItem("currentUser", JSON.stringify(currentUser));
+          
+          alert("Profile updated successfully!");
+          populateProfileData();
+        } else {
+          alert("Error: Account record not found in system database.");
+        }
+      });
+    });
+  </script>
+
+  <!-- Navigation and Footer Components Layout Loader -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Inline Header Loader
+      const navPlaceholder = document.getElementById("navbar-placeholder");
+      if (navPlaceholder) {
+        navPlaceholder.innerHTML = `
+          <nav class="navbar">
+            <div class="nav-logo">
+              <a href="index.html">
+                <span class="logo-text">HopeLink</span><span class="logo-sub">Foundation</span>
+              </a>
+            </div>
+            <ul class="nav-links" id="nav-links">
+              <li><a href="index.html" class="nav-link">Home</a></li>
+              <li><a href="about.html" class="nav-link">About Us</a></li>
+              <li><a href="services.html" class="nav-link">Programs</a></li>
+              <li><a href="events.html" class="nav-link">Events</a></li>
+              <li><a href="blog.html" class="nav-link">Blog</a></li>
+              <li><a href="contact.html" class="nav-link">Contact</a></li>
+              <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+              <li><a href="#" id="logout-btn" class="nav-btn logout-btn">Logout</a></li>
+            </ul>
+          </nav>
+        `;
+        
+        document.getElementById("logout-btn").addEventListener("click", (e) => {
+          e.preventDefault();
+          localStorage.removeItem("currentUser");
+          alert("Logged out successfully!");
+          window.location.href = "index.html";
+        });
+      }
+
+      // Inline Footer Loader
+      const footerPlaceholder = document.getElementById("footer-placeholder");
+      if (footerPlaceholder) {
+        footerPlaceholder.innerHTML = `
+          <footer class="main-footer">
+            <div class="footer-grid">
+              <div class="footer-brand">
+                <h3>HopeLink Foundation</h3>
+                <p>Empowering communities in Ghana through sustainable education, healthcare, and development.</p>
+              </div>
+              <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Tamale, Northern Region, Ghana</p>
+                <p><i class="fas fa-phone"></i> +233 55 299 4899</p>
+              </div>
+            </div>
+            <div class="footer-bottom">
+              <p>&copy; 2026 HopeLink Foundation. All Rights Reserved.</p>
+            </div>
+          </footer>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>

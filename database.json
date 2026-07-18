@@ -1,0 +1,47 @@
+{
+  "users": [
+    {
+      "id": "admin123",
+      "firstName": "Dennis",
+      "lastName": "Kine",
+      "username": "denniskine",
+      "email": "dennis@hopelink.org",
+      "password": "password123",
+      "phoneNumber": "0241234567",
+      "region": "Northern Region",
+      "role": "admin",
+      "profilePic": "assets/images/admin-avatar.jpg"
+    }
+  ],
+  "donations": [],
+  "volunteers": [],
+  "events": [
+    {
+      "id": "e1",
+      "title": "Rural Health & Sanitation Drive",
+      "category": "Healthcare",
+      "date": "Aug 24, 2026",
+      "location": "Tamale, Ghana",
+      "image": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=400&q=80",
+      "description": "Help our medical teams set up mobile testing booths, distribute sanitary packs, and lead health workshops for families."
+    },
+    {
+      "id": "e2",
+      "title": "Back-to-School Distribution",
+      "category": "Education",
+      "date": "Sept 10, 2026",
+      "location": "Northern Region",
+      "image": "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=400&q=80",
+      "description": "Join our logistics crew sorting and distributing educational packages, textbooks, and solar study lamps to off-grid pupils."
+    },
+    {
+      "id": "e3",
+      "title": "Digital Boot Camp Mentorship",
+      "category": "Youth Literacy",
+      "date": "Oct 05, 2026",
+      "location": "Urban Center",
+      "image": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=400&q=80",
+      "description": "Looking for computing assistants to mentor youths on foundational software layouts and web design basics."
+    }
+  ]
+}

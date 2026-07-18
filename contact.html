@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | HopeLink Foundation</title>
+  
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* --- Base Fallbacks & Setup --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #f8f9fa;
+      color: #333;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section-padding {
+      padding: 60px 0;
+    }
+
+    /* --- Hero Layout Area --- */
+    .contact-hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(46, 125, 50, 0.8)), 
+                  url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+      padding: 80px 0;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    /* Controls height scaling on massive laptop displays */
+    @media (min-width: 1200px) {
+      .contact-hero {
+        padding: 100px 0;
+      }
+    }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    /* Laptop Grid Split */
+    @media (min-width: 768px) {
+      .contact-container {
+        grid-template-columns: 1fr 1.5fr;
+        gap: 30px;
+      }
+    }
+
+    /* --- Contact Info Sidebar Cards --- */
+    .info-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .info-card {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .info-icon {
+      background-color: rgba(46, 125, 50, 0.1);
+      color: #2e7d32;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .info-content h4 {
+      margin-bottom: 5px;
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    .info-content p, .info-content a {
+      color: #666;
+      font-size: 0.9rem;
+      text-decoration: none;
+      word-break: break-all; /* Stops long text breaking phone views */
+    }
+
+    .info-content a:hover {
+      color: #2e7d32;
+    }
+
+    /* --- Contact Form Section --- */
+    .contact-form-card {
+      background: #ffffff;
+      padding: 30px; /* Great for laptop size */
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,.05);
+    }
+
+    /* PHONE SIZE FIX: Reduce card inner padding on small mobile screens */
+    @media (max-width: 480px) {
+      .contact-form-card {
+        padding: 20px 15px; 
+      }
+      .section-padding {
+        padding: 40px 0; /* Cleaner mobile block spacing */
+      }
+    }
+
+    .contact-form-card h3 {
+      color: #2e7d32;
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+    }
+
+    .contact-form-card p {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 25px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    @media (min-width: 600px) {
+      .form-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .form-group.full-width {
+        grid-column: span 2;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 12px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: 0.2s ease;
+      width: 100%;
+    }
+
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: #2e7d32;
+    }
+
+    /* --- Form Action Button --- */
+    .btn-submit-contact {
+      background-color: #2e7d32;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-submit-contact:hover {
+      background-color: #1e5222;
+    }
+
+    /* --- Map Block Element --- */
+    .map-section {
+      margin-top: 50px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,.05);
+      height: 350px;
+    }
+    
+    @media (max-width: 480px) {
+      .map-section {
+        height: 260px; /* Slightly shorter map looks sharper on tiny screens */
+        margin-top: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Navbar -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- 1. HERO HEADER -->
+  <header class="contact-hero">
+    <div class="container">
+      <h1>Get in Touch</h1>
+      <p style="max-width: 600px; margin: 10px auto 0 auto; opacity: 0.9;">
+        Have questions about our programs, partnership opportunities, or how to get involved? Send us a message today.
+      </p>
+    </div>
+  </header>
+
+  <!-- 2. CONTACT SECTION -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="contact-container">
+        
+        <!-- Info Sidebar -->
+        <div class="info-sidebar">
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="info-content">
+              <h4>Headquarters Location</h4>
+              <p>Tamale, Northern Region, Ghana</p>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div class="info-content">
+              <h4>Phone Number</h4>
+              <p><a href="tel:+233503163427">+233 50 316 3427</a></p>
+              <p><a href="tel:+233552994899">+233 55 299 4899</a></p>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="info-content">
+              <h4>Email Inquiries</h4>
+              <p><a href="mailto:dennis0503163427@gmail.com">dennis0503163427@gmail.com</a></p>
+              <p><a href="mailto:dennis0507916863@gmail.com">dennis0507916863@gmail.com</a></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form Card -->
+        <div class="contact-form-card">
+          <h3>Send Us a Message</h3>
+          <p>Fill out the simple form below and our team will get back to you within 24 hours.</p>
+          
+          <form id="contact-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="c-name">Full Name</label>
+                <input type="text" id="c-name" required placeholder="Enter your full name">
+              </div>
+              <div class="form-group">
+                <label for="c-email">Email Address</label>
+                <input type="email" id="c-email" required placeholder="you@example.com">
+              </div>
+              <div class="form-group">
+                <label for="c-phone">Phone Number (Optional)</label>
+                <input type="tel" id="c-phone" placeholder="e.g. 0241234567">
+              </div>
+              <div class="form-group">
+                <label for="c-subject">Inquiry Subject</label>
+                <select id="c-subject" required>
+                  <option value="" disabled selected>Select option...</option>
+                  <option value="General Inquiry">General Inquiry</option>
+                  <option value="Partnership">Partnership Opportunities</option>
+                  <option value="Donation Query">Donation Support</option>
+                  <option value="Volunteer Programs">Volunteer Opportunities</option>
+                </select>
+              </div>
+              <div class="form-group full-width">
+                <label for="c-message">Your Message</label>
+                <textarea id="c-message" rows="5" required placeholder="Write your message details here..."></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn-submit-contact" style="margin-top: 20px; width: 100%; padding: 12px;">Send Message</button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- 3. INTERACTIVE MAP AREA -->
+      <div class="map-section">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126135.29827010537!2d-0.9255290623253509!3d9.400785160898516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf357e627877239d%3A0x6b095697d09540b6!2sTamale%2C%20Ghana!5e0!3m2!1sen!2sus!4v1716000000000!5m2!1sen!2sus" 
+          width="100%" 
+          height="100%" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy">
+        </iframe>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Dynamic Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="main.js"></script>
+  <script src="navbar.js"></script>
+  <script src="footer.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const contactForm = document.getElementById("contact-form");
+      const cName = document.getElementById("c-name");
+      const cEmail = document.getElementById("c-email");
+      const cPhone = document.getElementById("c-phone");
+      const cSubject = document.getElementById("c-subject");
+      const cMessage = document.getElementById("c-message");
+
+      // Auto-fill inputs if the user is currently logged in
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+      if (currentUser) {
+        cName.value = `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim();
+        cEmail.value = currentUser.email || '';
+        if (currentUser.phoneNumber) {
+          cPhone.value = currentUser.phoneNumber;
+        }
+      }
+
+      // Handle form submission and sync with Admin arrays
+      contactForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const senderName = cName.value.trim();
+        const senderEmail = cEmail.value.trim();
+        const subjectValue = cSubject.value;
+        const messageDetails = cMessage.value.trim();
+        
+        // Combine subject and message so the admin sees exactly what they asked about
+        const fullMessageText = `[${subjectValue}] - ${messageDetails} (Phone: ${cPhone.value || 'N/A'})`;
+
+        // 1. Get existing requests or initialize an empty array for the Admin Table
+        const allRequests = JSON.parse(localStorage.getItem("hl_requests")) || [];
+
+        // 2. Create the new request object to match Admin table structure
+        const newRequest = {
+          id: Date.now(),
+          name: senderName,
+          email: senderEmail,
+          text: fullMessageText,
+          date: new Date().toISOString().replace('T', ' ').substring(0, 16),
+          status: "pending",
+          reply: ""
+        };
+
+        // 3. Save request to LocalStorage
+        allRequests.push(newRequest);
+        localStorage.setItem("hl_requests", JSON.stringify(allRequests));
+
+        // 4. Update the Admin Activity Log automatically
+        const allLogs = JSON.parse(localStorage.getItem("hl_logs")) || [];
+        allLogs.unshift({
+          time: new Date().toISOString().replace('T', ' ').substring(0, 16),
+          action: `New support request submitted by ${senderEmail}`
+        });
+        localStorage.setItem("hl_logs", JSON.stringify(allLogs));
+
+        // Let the user know it was successful
+        alert(`Thank you, ${senderName}! Your message regarding "${subjectValue}" has been received. Our team will contact you shortly.`);
+        
+        contactForm.reset();
+
+        // Restore logged-in user details if applicable
+        if (currentUser) {
+          cName.value = `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim();
+          cEmail.value = currentUser.email || '';
+          if (currentUser.phoneNumber) {
+            cPhone.value = currentUser.phoneNumber;
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

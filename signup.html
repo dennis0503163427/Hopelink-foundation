@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up | HopeLink Foundation</title>
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .auth-container {
+      max-width: 650px;
+      margin: 40px auto;
+      background: var(--white, #ffffff);
+      padding: 40px;
+      border-radius: var(--border-radius, 10px);
+      box-shadow: var(--box-shadow, 0 5px 15px rgba(0,0,0,.05));
+    }
+    .auth-title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 5px;
+    }
+    .form-group label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    .form-group input, .form-group select {
+      padding: 11px;
+      border: 1.5px solid var(--light-grey, #e2e8f0);
+      border-radius: 5px;
+      font-family: var(--font-main, 'Poppins', sans-serif);
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition, 0.2s ease);
+      width: 100%;
+    }
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--primary-color, #2e7d32);
+    }
+    .form-full-width {
+      grid-column: 1 / -1;
+    }
+    .error-msg {
+      color: var(--error-color, #dc2626);
+      font-size: 0.8rem;
+      margin-top: 5px;
+      display: none;
+    }
+    .password-strength {
+      height: 5px;
+      background-color: var(--light-grey, #e2e8f0);
+      margin-top: 7px;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .strength-bar {
+      height: 100%;
+      width: 0%;
+      transition: var(--transition, 0.2s ease);
+    }
+
+    /* --- RESPONSIVE SCREEN FIXES --- */
+    @media (max-width: 600px) {
+      .auth-container {
+        margin: 20px auto;
+        padding: 25px 15px; /* Give breathing space to internal mobile layouts */
+      }
+      .form-grid { 
+        grid-template-columns: 1fr; /* Drop cleanly to single column layout */
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Navbar -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- SIGN UP FORM -->
+  <main class="container">
+    <div class="auth-container">
+      <div class="auth-title">
+        <h2>Create an Account</h2>
+        <p style="color: var(--grey, #666);">Join the HopeLink team as a volunteer or supporter</p>
+      </div>
+
+      <form id="signup-form">
+        <div class="form-grid">
+          <!-- First Name -->
+          <div class="form-group">
+            <label for="firstName">First Name *</label>
+            <input type="text" id="firstName" required>
+          </div>
+          <!-- Last Name -->
+          <div class="form-group">
+            <label for="lastName">Last Name *</label>
+            <input type="text" id="lastName" required>
+          </div>
+          <!-- Username -->
+          <div class="form-group">
+            <label for="username">Username *</label>
+            <input type="text" id="username" required>
+            <span class="error-msg" id="username-error">Username is already taken.</span>
+          </div>
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" required>
+            <span class="error-msg" id="email-error">Please enter a valid email.</span>
+          </div>
+          <!-- Phone Number -->
+          <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" id="phone" placeholder="+233..." required>
+          </div>
+          <!-- Date of Birth -->
+          <div class="form-group">
+            <label for="dob">Date of Birth *</label>
+            <input type="date" id="dob" required>
+          </div>
+          <!-- Gender -->
+          <div class="form-group">
+            <label for="gender">Gender *</label>
+            <select id="gender" required>
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <!-- Country -->
+          <div class="form-group">
+            <label for="country">Country *</label>
+            <select id="country" required>
+              <option value="Ghana">Ghana</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <!-- Region -->
+          <div class="form-group">
+            <label for="region">Region (Ghana) *</label>
+            <select id="region" required>
+              <option value="">Select Region</option>
+              <option value="Northern">Northern</option>
+              <option value="Greater Accra">Greater Accra</option>
+              <option value="Ashanti">Ashanti</option>
+              <option value="Western">Western</option>
+              <option value="Eastern">Eastern</option>
+              <option value="Volta">Volta</option>
+            </select>
+          </div>
+          <!-- Profile Pic Upload -->
+          <div class="form-group">
+            <label for="profilePic">Profile Picture</label>
+            <input type="file" id="profilePic" accept="image/*" style="border: none; padding: 5px 0;">
+          </div>
+          <!-- Password -->
+          <div class="form-group form-full-width">
+            <label for="password">Password *</label>
+            <input type="password" id="password" required>
+            <div class="password-strength"><div class="strength-bar" id="strength-bar"></div></div>
+            <span style="font-size: 0.75rem; color: var(--grey, #666); display: block; margin-top: 4px;" id="strength-text">Password strength</span>
+          </div>
+          <!-- Confirm Password -->
+          <div class="form-group form-full-width">
+            <label for="confirmPassword">Confirm Password *</label>
+            <input type="password" id="confirmPassword" required>
+            <span class="error-msg" id="match-error">Passwords do not match.</span>
+          </div>
+          <!-- Terms and Conditions -->
+          <div class="form-group form-full-width" style="flex-direction: row; gap: 10px; align-items: center; margin-top: 10px;">
+            <input type="checkbox" id="terms" required style="width: auto;">
+            <label for="terms" style="margin-bottom: 0;">I accept the <a href="#" style="color: var(--primary-color, #2e7d32);">Terms and Conditions</a></label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary form-full-width" style="width: 100%; margin-top: 25px; padding: 12px; font-weight: 600;">Sign Up</button>
+      </form>
+
+      <p style="text-align: center; margin-top: 20px; font-size: 0.9rem;">
+        Already have an account? <a href="login.html" style="color: var(--primary-color, #2e7d32); font-weight: 600;">Log In</a>
+      </p>
+    </div>
+  </main>
+
+  <!-- Dynamic Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="main.js"></script>
+  <script src="navbar.js"></script>
+  <script src="footer.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const passwordInput = document.getElementById("password");
+      const confirmInput = document.getElementById("confirmPassword");
+      const strengthBar = document.getElementById("strength-bar");
+      const strengthText = document.getElementById("strength-text");
+      const matchError = document.getElementById("match-error");
+      const signupForm = document.getElementById("signup-form");
+
+      // Fallback local storage handlers if main.js functions fail
+      const getCollection = (key) => JSON.parse(localStorage.getItem(`hl_${key}`)) || [];
+      const saveCollection = (key, data) => localStorage.setItem(`hl_${key}`, JSON.stringify(data));
+
+      passwordInput.addEventListener("input", () => {
+        const value = passwordInput.value;
+        let score = 0;
+        
+        if (value.length >= 8) score++;
+        if (/[A-Z]/.test(value)) score++;
+        if (/[0-9]/.test(value)) score++;
+        if (/[^A-Za-z0-9]/.test(value)) score++;
+
+        if (score === 0) {
+          strengthBar.style.width = "0%";
+          strengthText.innerText = "Too short";
+          strengthBar.style.backgroundColor = "transparent";
+        } else if (score === 1) {
+          strengthBar.style.width = "25%";
+          strengthText.innerText = "Weak";
+          strengthBar.style.backgroundColor = "red";
+        } else if (score === 2 || score === 3) {
+          strengthBar.style.width = "60%";
+          strengthText.innerText = "Medium";
+          strengthBar.style.backgroundColor = "orange";
+        } else if (score === 4) {
+          strengthBar.style.width = "100%";
+          strengthText.innerText = "Strong";
+          strengthBar.style.backgroundColor = "green";
+        }
+      });
+
+      confirmInput.addEventListener("input", () => {
+        if (passwordInput.value !== confirmInput.value) {
+          matchError.style.display = "block";
+        } else {
+          matchError.style.display = "none";
+        }
+      });
+
+      signupForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        if (passwordInput.value !== confirmInput.value) {
+          alert("Passwords do not match!");
+          return;
+        }
+
+        const username = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
+
+        const users = getCollection("users");
+
+        const userExists = users.some(user => user.username === username);
+        if (userExists) {
+          document.getElementById("username-error").style.display = "block";
+          return;
+        } else {
+          document.getElementById("username-error").style.display = "none";
+        }
+
+        const newUser = {
+          id: 'u_' + Date.now(),
+          firstName: document.getElementById("firstName").value,
+          lastName: document.getElementById("lastName").value,
+          username: username,
+          email: email,
+          phoneNumber: document.getElementById("phone").value,
+          dob: document.getElementById("dob").value,
+          gender: document.getElementById("gender").value,
+          country: document.getElementById("country").value,
+          region: document.getElementById("region").value,
+          password: passwordInput.value,
+          role: "user",
+          profilePic: "",
+          createdAt: new Date().toISOString()
+        };
+
+        users.push(newUser);
+        saveCollection("users", users);
+
+        alert("Registration Successful! Redirecting you to login.");
+        window.location.href = "login.html";
+      });
+    });
+  </script>
+</body>
+</html>

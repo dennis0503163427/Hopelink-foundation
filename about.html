@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>About Us | HopeLink Foundation</title>
+
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Main CSS -->
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* --- Global & Container Helpers --- */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.section-padding {
+  padding: 60px 0;
+}
+
+/* --- Hero Section --- */
+.about-hero {
+  background: linear-gradient(rgba(46,125,50,.85), rgba(21,101,192,.85)),
+              url("about-hero-bg.jpg") center center/cover no-repeat;
+  padding: 90px 0;
+  text-align: center;
+  color: #fff;
+}
+
+/* --- Story Section (Founder) --- */
+.story-section {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.founder-image img {
+  width: 100%;
+  max-width: 450px; /* Prevents the image from becoming massive on large laptops */
+  height: auto;     /* Maintains natural aspect ratio */
+  min-height: 380px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.15);
+  display: block;
+  margin: 0 auto;
+}
+
+/* --- Responsive Story Grid --- */
+@media (max-width: 768px) {
+  .story-section {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .founder-image img {
+    max-width: 100%;
+  }
+}
+
+/* --- Timeline Section --- */
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 50px auto 0;
+}
+
+/* Central Line */
+.timeline::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  background: #2e7d32;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -2px;
+}
+
+.timeline-container {
+  position: relative;
+  width: 50%;
+  padding: 10px 40px;
+  box-sizing: border-box;
+}
+
+/* Timeline Dots */
+.timeline-container::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: -10px;
+  background: #fff;
+  border: 4px solid #1565c0;
+  border-radius: 50%;
+  top: 25px;
+  z-index: 1;
+}
+
+.left-timeline {
+  left: 0;
+}
+
+.right-timeline {
+  left: 50%;
+}
+
+.right-timeline::after {
+  left: -10px;
+}
+
+.timeline-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.1);
+}
+
+/* --- Mobile Timeline Fix (Below 768px) --- */
+@media (max-width: 768px) {
+  .timeline::after {
+    left: 20px; /* Moves central line to the left edge */
+  }
+
+  .timeline-container {
+    width: 100%;      /* Cards take up full screen width */
+    padding-left: 45px;
+    padding-right: 15px;
+    left: 0 !important; /* Forces right-side containers back to the left side */
+    margin-bottom: 20px;
+  }
+
+  .timeline-container::after {
+    left: 10px;       /* Aligns all dots to match the new left-aligned line */
+  }
+}
+
+/* --- Team Grid Section --- */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.team-card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,.1);
+  transition: .3s;
+  text-align: center;
+}
+
+.team-card:hover {
+  transform: translateY(-8px);
+}
+
+.team-img {
+  height: 280px;
+  overflow: hidden;
+}
+
+.team-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.team-info {
+  padding: 20px;
+}
+
+.team-info h4 {
+  margin-bottom: 8px;
+}
+
+.team-info span {
+  color: #2e7d32;
+  font-weight: 600;
+  font-size: .9rem;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="navbar-placeholder"></div>
+
+<header class="about-hero">
+
+<div class="container">
+
+<h1>Our Journey of Impact</h1>
+
+<p style="max-width:650px;margin:auto;margin-top:15px;">
+Learn about the heart behind HopeLink Foundation, our visionaries,
+our mission, and the lives we continue to impact across Ghana.
+</p>
+
+</div>
+
+</header>
+
+<section class="section-padding">
+
+<div class="container story-section">
+
+<div>
+
+<span style="color:var(--primary-color);font-weight:700;">
+OUR HISTORY
+</span>
+
+<h2 style="margin:15px 0;">
+How HopeLink Started
+</h2>
+
+<p style="margin-bottom:15px;">
+Founded in Tamale in the Northern Region of Ghana,
+HopeLink Foundation began as a small group of volunteers
+who believed that every child deserves quality education,
+every family deserves healthcare,
+and every community deserves hope.
+</p>
+
+<p style="margin-bottom:15px;">
+Through commitment,
+partnership,
+and compassion,
+our organization has expanded across several communities,
+providing scholarships,
+medical outreach,
+clean water initiatives,
+skills training,
+and volunteer opportunities.
+</p>
+
+<h3 style="margin:30px 0 15px;">
+Founder's Philosophy
+</h3>
+
+<blockquote style="border-left:5px solid #2e7d32;padding-left:20px;font-style:italic;color:#666;">
+"True community development begins when people are empowered with knowledge, opportunity, and hope."
+
+<br><br>
+
+<strong>
+— Dennis Danladi Kine
+</strong>
+
+</blockquote>
+
+</div>
+
+<div class="founder-image">
+
+<img
+src="founder.jpg"
+alt="Founder">
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= TIMELINE ================= -->
+
+<section class="section-padding" style="background:#fff;">
+
+<div class="container">
+
+<div style="text-align:center;">
+
+<h2>Our Journey Through the Years</h2>
+
+<p style="color:#666;">
+Every milestone represents another step toward transforming lives and strengthening communities.
+</p>
+
+</div>
+
+<div class="timeline">
+
+<div class="timeline-container left-timeline">
+
+<div class="timeline-content">
+
+<h3 style="color:#2e7d32;">2020</h3>
+
+<h4>The Beginning</h4>
+
+<p>
+HopeLink Foundation started as a small volunteer initiative
+supporting children through educational mentoring,
+school supplies,
+and youth development activities.
+</p>
+
+</div>
+
+</div>
+
+<div class="timeline-container right-timeline">
+
+<div class="timeline-content">
+
+<h3 style="color:#2e7d32;">2022</h3>
+
+<h4>Healthcare Outreach</h4>
+
+<p>
+Medical professionals joined our mission,
+allowing us to organize free health screenings,
+community education,
+and sanitation campaigns.
+</p>
+
+</div>
+
+</div>
+
+<div class="timeline-container left-timeline">
+
+<div class="timeline-content">
+
+<h3 style="color:#2e7d32;">2024</h3>
+
+<h4>Official Registration</h4>
+
+<p>
+HopeLink became a registered non-governmental organization,
+expanding partnerships with volunteers,
+organizations,
+and donors across Ghana.
+</p>
+
+</div>
+
+</div>
+
+<div class="timeline-container right-timeline">
+
+<div class="timeline-content">
+
+<h3 style="color:#2e7d32;">2026</h3>
+
+<h4>Digital Transformation</h4>
+
+<p>
+Launch of the HopeLink digital platform,
+making volunteer registration,
+donation tracking,
+and project management faster and more transparent.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= TEAM MEMBERS ================= -->
+
+<section class="section-padding">
+
+<div class="container">
+
+<div style="text-align:center;">
+
+<h2>Meet Our Leadership Team</h2>
+
+<p style="color:#666;">
+Dedicated professionals working together to build stronger communities.
+</p>
+
+</div>
+
+<div class="team-grid">
+
+<!-- Founder -->
+
+<div class="team-card">
+
+<div class="team-img">
+
+<img
+src="dennis.jpg"
+alt="Dennis Danladi Kine">
+
+</div>
+
+<div class="team-info">
+
+<h4>Dennis Danladi Kine</h4>
+
+<span>Founder & Executive Director</span>
+
+</div>
+
+</div>
+
+<!-- Member 2 -->
+
+<div class="team-card">
+
+<div class="team-img">
+
+<img
+src="ama-osei.jpg"
+alt="Dr Ama Osei">
+
+</div>
+
+<div class="team-info">
+
+<h4>Dr. Ama Osei</h4>
+
+<span>Head of Medical Services</span>
+
+</div>
+
+</div>
+
+<!-- Member 3 -->
+
+<div class="team-card">
+
+<div class="team-img">
+
+<img
+src="kojo-mensah.jpg"
+alt="Kojo Mensah">
+
+</div>
+
+<div class="team-info">
+
+<h4>Kojo Mensah</h4>
+
+<span>Director of Education</span>
+
+</div>
+
+</div>
+
+<!-- Member 4 -->
+
+<div class="team-card">
+
+<div class="team-img">
+
+<img
+src="fatima-alhassan.jpg"
+alt="Fatima Al-Hassan">
+
+</div>
+
+<div class="team-info">
+
+<h4>Fatima Al-Hassan</h4>
+
+<span>Community Relations Coordinator</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= MISSION SECTION ================= -->
+
+<section class="section-padding" style="background:#f8f9fa;">
+
+<div class="container">
+
+<div style="text-align:center; max-width:800px; margin:auto;">
+
+<h2>Our Mission</h2>
+
+<p style="margin-top:20px; color:#666; font-size:1.05rem; line-height:1.8;">
+
+HopeLink Foundation is committed to improving the quality of life of vulnerable individuals and communities by promoting access to quality education, healthcare, clean water, youth empowerment, and sustainable community development. Through partnerships, volunteerism, and innovation, we strive to create opportunities that inspire hope and lasting positive change across Ghana.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ================= MISSION | VISION | VALUES ================= -->
+
+<section class="section-padding" style="background:#f8f9fa;">
+
+<div class="container">
+
+<div style="text-align:center;margin-bottom:50px;">
+
+<h2>Mission, Vision & Core Values</h2>
+
+<p style="color:#666;">
+The principles that guide every project we undertake.
+</p>
+
+</div>
+
+<div style="
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+">
+
+<!-- Mission -->
+
+<div style="
+background:#fff;
+padding:30px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+text-align:center;
+">
+
+<i class="fas fa-bullseye"
+style="
+font-size:45px;
+color:#2e7d32;
+margin-bottom:20px;
+"></i>
+
+<h3>Our Mission</h3>
+
+<p style="color:#666;line-height:1.8;">
+
+HopeLink Foundation exists to improve lives through
+quality education,
+accessible healthcare,
+community empowerment,
+clean water initiatives,
+and sustainable development programmes across Ghana.
+
+</p>
+
+</div>
+
+<!-- Vision -->
+
+<div style="
+background:#fff;
+padding:30px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+text-align:center;
+">
+
+<i class="fas fa-eye"
+style="
+font-size:45px;
+color:#1565c0;
+margin-bottom:20px;
+"></i>
+
+<h3>Our Vision</h3>
+
+<p style="color:#666;line-height:1.8;">
+
+To build healthy,
+educated,
+and empowered communities where everyone has equal opportunities to succeed and live with dignity.
+
+</p>
+
+</div>
+
+<!-- Values -->
+
+<div style="
+background:#fff;
+padding:30px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+text-align:center;
+">
+
+<i class="fas fa-heart"
+style="
+font-size:45px;
+color:#f57c00;
+margin-bottom:20px;
+"></i>
+
+<h3>Our Core Values</h3>
+
+<p style="color:#666;line-height:1.8;">
+
+Integrity<br>
+
+Compassion<br>
+
+Transparency<br>
+
+Innovation<br>
+
+Teamwork<br>
+
+Community Service
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= IMPACT SECTION ================= -->
+
+<section class="section-padding">
+
+<div class="container">
+
+<div style="text-align:center;">
+
+<h2>Our Impact So Far</h2>
+
+<p style="color:#666;">
+Every number represents lives touched through our projects.
+</p>
+
+</div>
+
+<div style="
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:30px;
+margin-top:50px;
+text-align:center;
+">
+
+<div>
+
+<h1 style="color:#2e7d32;">5,000+</h1>
+
+<p>People Reached</p>
+
+</div>
+
+<div>
+
+<h1 style="color:#1565c0;">120+</h1>
+
+<p>Volunteers</p>
+
+</div>
+
+<div>
+
+<h1 style="color:#f57c00;">35+</h1>
+
+<p>Communities Served</p>
+
+</div>
+
+<div>
+
+<h1 style="color:#e53935;">50+</h1>
+
+<p>Projects Completed</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= CALL TO ACTION ================= -->
+
+<section
+class="section-padding"
+style="
+background:#2e7d32;
+color:#fff;
+text-align:center;
+">
+
+<div class="container">
+
+<h2>Join Our Mission</h2>
+
+<p style="
+max-width:700px;
+margin:auto;
+margin-top:20px;
+line-height:1.8;
+">
+
+Together we can transform lives,
+empower communities,
+and build a brighter future for generations to come.
+
+</p>
+
+<div style="margin-top:35px;">
+
+<a
+href="contact.html"
+class="btn btn-secondary">
+
+Become a Volunteer
+
+</a>
+
+<a
+href="donate.html"
+class="btn btn-light"
+style="margin-left:15px;">
+
+Donate Now
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+<!-- ================= FOOTER ================= -->
+
+<div id="footer-placeholder"></div>
+
+<!-- ================= SCRIPTS ================= -->
+
+<script src="main.js"></script>
+
+<script src="navbar.js"></script>
+
+<script src="footer.js"></script>
+
+</body>
+
+</html>

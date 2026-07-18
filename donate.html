@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donate Now | HopeLink Foundation</title>
+
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Main CSS -->
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* --- Global Reset & Helpers --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #f8f9fa;
+  color: #333;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-padding {
+  padding: 60px 0;
+}
+
+/* --- Hero Section --- */
+.donate-hero {
+  background: linear-gradient(rgba(46,125,50,.85), rgba(21,101,192,.85)),
+              url("donate-bg.jpg") center center/cover no-repeat;
+  padding: 80px 0;
+  text-align: center;
+  color: #fff;
+}
+
+/* --- Layout Grid --- */
+.donate-wrapper {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 50px;
+  align-items: start;
+  margin-top: 30px;
+}
+
+/* --- Info Section --- */
+.donate-info h2 {
+  color: #2e7d32;
+  margin-bottom: 20px;
+}
+
+.donate-info p {
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.impact-list {
+  list-style: none;
+  margin-top: 30px;
+}
+
+.impact-list li {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  color: #444;
+}
+
+.impact-list i {
+  color: #1565c0;
+  font-size: 1.2rem;
+}
+
+/* --- Donation Card & Form --- */
+.donate-card {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+.donate-card h3 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+/* Amount Grid */
+.amount-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.amount-btn {
+  background: #f1f3f5;
+  border: 2px solid transparent;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.2s ease;
+  color: #333;
+}
+
+.amount-btn:hover, .amount-btn.active {
+  background: #2e7d32;
+  color: #fff;
+}
+
+/* Custom Amount Input */
+.input-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.input-group span {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 600;
+  color: #666;
+}
+
+.input-group input, .form-control {
+  width: 100%;
+  padding: 12px 15px 12px 40px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.2s;
+}
+
+.form-control {
+  padding-left: 15px;
+}
+
+.input-group input:focus, .form-control:focus {
+  border-color: #2e7d32;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* Submit Button */
+.btn-submit {
+  width: 100%;
+  background: #2e7d32;
+  color: #fff;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
+}
+
+.btn-submit:hover {
+  background: #1e5222;
+}
+
+/* --- Responsive Layout Breakpoints --- */
+@media (max-width: 992px) {
+  .donate-wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 576px) {
+  .amount-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .donate-card {
+    padding: 25px 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navbar Placeholder matching your site components -->
+<div id="navbar-placeholder"></div>
+
+<header class="donate-hero">
+  <div class="container">
+    <h1>Support Our Cause</h1>
+    <p style="max-width:650px; margin:15px auto 0;">
+      Your generosity funds critical healthcare programs, clean water infrastructure, and educational scholarships across Ghana.
+    </p>
+  </div>
+</header>
+
+<section class="section-padding">
+  <div class="container donate-wrapper">
+    
+    <!-- Left Column: Impact Info -->
+    <div class="donate-info">
+      <h2>Your Gift Makes a Difference</h2>
+      <p>
+        Every donation directly impacts families in underserved communities. HopeLink Foundation ensures that structural opportunities reach those who need them most through absolute transparency.
+      </p>
+      <p>
+        Whether you are giving a one-time financial gift or setting up regular support, you are actively bringing tangible transformation and empowerment.
+      </p>
+
+      <ul class="impact-list">
+        <li><i class="fas fa-check-circle"></i> GH₵ 50 provides learning materials for a child.</li>
+        <li><i class="fas fa-check-circle"></i> GH₵ 200 supports medical screenings for an entire family.</li>
+        <li><i class="fas fa-check-circle"></i> GH₵ 500 funds clean water point access projects.</li>
+      </ul>
+    </div>
+
+    <!-- Right Column: Donation Form Widget -->
+    <div class="donate-card">
+      <h3>Choose Amount (GH₵)</h3>
+      
+      <!-- Preset Amounts Grid -->
+      <div class="amount-grid">
+        <div class="amount-btn active" onclick="setAmount(50, this)">50</div>
+        <div class="amount-btn" onclick="setAmount(100, this)">100</div>
+        <div class="amount-btn" onclick="setAmount(200, this)">200</div>
+        <div class="amount-btn" onclick="setAmount(500, this)">500</div>
+        <div class="amount-btn" onclick="setAmount(1000, this)">1000</div>
+        <div class="amount-btn" onclick="clearPresets(this)">Custom</div>
+      </div>
+
+      <form action="#" id="donationForm">
+        <!-- Amount Input Field -->
+        <div class="input-group">
+          <span>GH₵</span>
+          <input type="number" id="customAmount" name="amount" value="50" min="5" placeholder="Enter amount" required>
+        </div>
+
+        <!-- Personal Details -->
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" class="form-control" placeholder="John Doe" required>
+        </div>
+
+        <div class="form-group">
+          <label for="emailAddress">Email Address</label>
+          <input type="email" id="emailAddress" class="form-control" placeholder="johndoe@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="paymentMethod">Payment Method</label>
+          <select id="paymentMethod" class="form-control" style="padding-left:12px;" required>
+            <option value="momo">Mobile Money (MTN / Telecel / AT)</option>
+            <option value="card">Credit / Debit Card</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-submit">Proceed to Secure Payment</button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer Placeholder matching your site components -->
+<div id="footer-placeholder"></div>
+
+<!-- JavaScript for Interactive Forms -->
+<script>
+function setAmount(val, element) {
+  document.getElementById('customAmount').value = val;
+  let buttons = document.querySelectorAll('.amount-btn');
+  buttons.forEach(btn => btn.classList.remove('active'));
+  element.classList.add('active');
+}
+
+function clearPresets(element) {
+  let input = document.getElementById('customAmount');
+  input.value = '';
+  input.focus();
+  let buttons = document.querySelectorAll('.amount-btn');
+  buttons.forEach(btn => btn.classList.remove('active'));
+  element.classList.add('active');
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const donationForm = document.getElementById("donationForm");
+  const fullNameInput = document.getElementById("fullName");
+  const emailInput = document.getElementById("emailAddress");
+
+  // Check current login context to auto-fill information
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (currentUser) {
+    fullNameInput.value = `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim();
+    emailInput.value = currentUser.email || '';
+  }
+
+  // Handle donation record tracking pipeline
+  donationForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    
+    const amountValue = parseFloat(document.getElementById("customAmount").value);
+    const methodSelect = document.getElementById("paymentMethod").value;
+
+    if (isNaN(amountValue) || amountValue < 5) {
+      alert("Please enter a valid donation amount (minimum GH₵ 5).");
+      return;
+    }
+
+    let db = JSON.parse(localStorage.getItem("hl_database")) || { donations: [], users: [], volunteers: [], events: [] };
+    if (!db.donations) db.donations = [];
+
+    // Structural ledger tracking entry
+    const donationRecord = {
+      id: Date.now().toString(),
+      userId: currentUser ? currentUser.id : "guest",
+      fullName: fullNameInput.value.trim(),
+      email: emailInput.value.trim(),
+      amount: amountValue,
+      method: methodSelect === "momo" ? "Mobile Money" : "Credit/Debit Card",
+      date: new Date().toLocaleDateString(),
+      status: "Completed"
+    };
+
+    db.donations.push(donationRecord);
+    localStorage.setItem("hl_database", JSON.stringify(db));
+
+    alert(`Thank you, ${donationRecord.fullName}! Your generous donation of GH₵ ${amountValue} has been securely processed.`);
+    
+    // Redirect logged-in ecosystem users straight to dashboard overview
+    if (currentUser) {
+      window.location.href = "Dashboard.html";
+    } else {
+      donationForm.reset();
+      setAmount(50, document.querySelector('.amount-grid .amount-btn'));
+    }
+  });
+});
+</script>
+
+<!-- Shared Scripts -->
+<script src="main.js"></script>
+<script src="navbar.js"></script>
+<script src="footer.js"></script>
+
+</body>
+</html>

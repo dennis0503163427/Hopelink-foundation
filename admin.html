@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | HopeLink Foundation</title>
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Chart.js Engine Library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    .admin-layout {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 15px;
+    }
+    .admin-header {
+      margin-bottom: 30px;
+    }
+    /* Stat Cards Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .metric-card {
+      background: var(--white, #ffffff);
+      padding: 25px;
+      border-radius: var(--border-radius, 10px);
+      box-shadow: var(--box-shadow, 0 5px 15px rgba(0,0,0,.05));
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .metric-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #e8f5e9;
+      color: var(--primary-color, #2e7d32);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+    }
+    .metric-info h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .metric-info p {
+      font-size: 0.85rem;
+      color: var(--grey, #666);
+    }
+    /* Data Management Table Panel */
+    .table-container {
+      background: var(--white, #ffffff);
+      padding: 30px;
+      border-radius: var(--border-radius, 10px);
+      box-shadow: var(--box-shadow, 0 5px 15px rgba(0,0,0,.05));
+      overflow-x: auto; /* Handles horizontal mobile overflow gracefully */
+      margin-bottom: 30px;
+    }
+    .table-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--light-grey, #e2e8f0);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    th, td {
+      padding: 12px 15px;
+      border-bottom: 1px solid var(--light-grey, #e2e8f0);
+    }
+    th {
+      background-color: #f8fafc;
+      font-weight: 600;
+      color: #334155;
+    }
+    .role-badge, .status-badge {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .role-admin { background-color: #dbeafe; color: #1e40af; }
+    .role-user { background-color: #e2e8f0; color: #334155; }
+    
+    .status-pending { background-color: #fef3c7; color: #92400e; }
+    .status-replied { background-color: #dcfce7; color: #166534; }
+
+    .btn-action {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .btn-delete { background-color: #fee2e2; color: #991b1b; }
+    .btn-delete:hover { background-color: #fca5a5; }
+    
+    .btn-reply { background-color: #e0f2fe; color: #0369a1; margin-right: 5px; }
+    .btn-reply:hover { background-color: #bae6fd; }
+
+    /* Log Output Box */
+    .log-list {
+      max-height: 250px;
+      overflow-y: auto;
+      background: #1e293b;
+      color: #38bdf8;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 15px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+    .log-item {
+      margin-bottom: 8px;
+      border-bottom: 1px dashed #334155;
+      padding-bottom: 4px;
+    }
+    .log-time { color: #94a3b8; margin-right: 10px; }
+
+    /* --- RESPONSIVE STRUCTURAL RESIZES (Phone Tuning) --- */
+    @media (max-width: 768px) {
+      .metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      .table-container {
+        padding: 20px 15px;
+      }
+      table {
+        min-width: 600px; /* Forces readable table scrolling inside small viewports */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Navbar -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- MAIN ADMIN DASHBOARD INTERFACE -->
+  <main class="container">
+    <div class="admin-layout">
+      
+      <div class="admin-header">
+        <h2>Management Console</h2>
+        <p style="color: var(--grey, #666);">Monitor user operations, audit logs, and message feedback requests.</p>
+      </div>
+
+      <!-- Overview Statistics Grid Section -->
+      <section class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-icon"><i class="fas fa-users"></i></div>
+          <div class="metric-info">
+            <h3 id="metric-users-count">0</h3>
+            <p>Registered Users</p>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon" style="background-color: #e0f2fe; color: #0369a1;"><i class="fas fa-envelope-open-text"></i></div>
+          <div class="metric-info">
+            <h3 id="metric-requests-count">0</h3>
+            <p>User Requests</p>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon" style="background-color: #fef3c7; color: #b45309;"><i class="fas fa-heart"></i></div>
+          <div class="metric-info">
+            <h3>₵4,850</h3>
+            <p>Raised (GHS)</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Graphical Analytics Chart Section -->
+      <section class="table-container" style="max-width: 500px; margin-left: auto; margin-right: auto;">
+        <div class="table-title">User Distribution by Region</div>
+        <div style="position: relative; height: 280px; width: 100%;">
+          <canvas id="regionChart"></canvas>
+        </div>
+      </section>
+
+      <!-- Database User Accounts Control Table Listing -->
+      <section class="table-container">
+        <div class="table-title" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <span>User Management Registry</span>
+          <input type="text" id="user-search-input" placeholder="🔍 Search name or email..." style="padding: 6px 12px; font-size: 0.85rem; border: 1.5px solid #e2e8f0; border-radius: 5px; outline: none; font-family: 'Poppins', sans-serif; width: 220px;">
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Username</th>
+              <th>Email Address</th>
+              <th>Region</th>
+              <th>Role</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-users-tbody">
+            <tr>
+              <td colspan="6" style="text-align: center; color: var(--grey, #666);">Loading registered database records...</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- User Information Requests & Contact Feedback Form Panel -->
+      <section class="table-container">
+        <div class="table-title">Incoming Information Requests & Feedback</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Sender</th>
+              <th>Request/Message Content</th>
+              <th>Submitted Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-requests-tbody">
+            <tr>
+              <td colspan="5" style="text-align: center; color: var(--grey, #666);">No open information requests or messages recorded.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- System Activity Logs Timeline -->
+      <section class="table-container">
+        <div class="table-title">
+          <span>Live Security Audit Log Timeline</span>
+          <button class="btn-action" id="clear-logs-btn" style="background-color: #cbd5e1; color: #1e293b;"><i class="fas fa-eraser"></i> Clear History</button>
+        </div>
+        <div class="log-list" id="admin-logs-box">
+          <div class="log-item">No system activity captured yet.</div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Dynamic Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="main.js"></script>
+  <script src="navbar.js"></script>
+  <script src="footer.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const tbody = document.getElementById("admin-users-tbody");
+      const requestsTbody = document.getElementById("admin-requests-tbody");
+      const logsBox = document.getElementById("admin-logs-box");
+      
+      const usersCountEl = document.getElementById("metric-users-count");
+      const requestsCountEl = document.getElementById("metric-requests-count");
+      const clearLogsBtn = document.getElementById("clear-logs-btn");
+      const searchInput = document.getElementById("user-search-input");
+
+      let myRegionChart = null; // Graph instance tracker
+
+      // 1. Session Protection Gatekeeper Check
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+      
+      if (!currentUser || currentUser.role !== "admin") {
+        alert("Access Denied: Administrative credentials required.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      // Initialize Mock Datasets to prevent empty array reference crashes
+      if (!localStorage.getItem("hl_requests")) {
+        const dummyRequests = [
+          { id: 1, name: "Kwame Mensah", email: "kwame@gmail.com", text: "I want to apply to volunteer for the upcoming Northern Region clean water campaign project.", date: "2026-07-15 10:24", status: "pending", reply: "" },
+          { id: 2, name: "Amma Serwaa", email: "serwaa@outlook.com", text: "Is there an option to get official physical donation receipt letters for institutional corporate tax claims?", date: "2026-07-16 14:10", status: "pending", reply: "" }
+        ];
+        localStorage.setItem("hl_requests", JSON.stringify(dummyRequests));
+      }
+
+      if (!localStorage.getItem("hl_logs")) {
+        const dummyLogs = [
+          { time: "2026-07-18 08:15", action: "System Administrator logged in securely from IP address session." },
+          { time: "2026-07-17 19:40", action: "User account @kwame_mensah registered successfully from Ashanti Region setup." }
+        ];
+        localStorage.setItem("hl_logs", JSON.stringify(dummyLogs));
+      }
+
+      // 2. Render Registered System Accounts Data
+      function renderUserRegistryTable(filteredArray = null) {
+        const allUsers = JSON.parse(localStorage.getItem("hl_users")) || [];
+        const usersToRender = filteredArray !== null ? filteredArray : allUsers;
+        
+        usersCountEl.innerText = allUsers.length;
+
+        if (usersToRender.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--grey, #666);">No matching accounts found.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = "";
+        usersToRender.forEach((user) => {
+          const tr = document.createElement("tr");
+          const roleClass = user.role === "admin" ? "role-admin" : "role-user";
+          const displayRole = user.role || "user";
+
+          tr.innerHTML = `
+            <td><strong>${user.firstName || ''} ${user.lastName || ''}</strong></td>
+            <td>@${user.username || 'N/A'}</td>
+            <td>${user.email || 'N/A'}</td>
+            <td>${user.region || 'N/A'}</td>
+            <td><span class="role-badge ${roleClass}">${displayRole}</span></td>
+            <td>
+              <button class="btn-action btn-delete" data-username="${user.username}">
+                <i class="fas fa-trash-alt"></i> Purge
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+        attachUserTableListeners();
+      }
+
+      // 2b. Generate and dynamically update the Region Pie Chart
+      function renderRegionChart() {
+        const allUsers = JSON.parse(localStorage.getItem("hl_users")) || [];
+        const canvasCtx = document.getElementById("regionChart").getContext("2d");
+        const regionCounts = {};
+
+        allUsers.forEach(user => {
+          let region = user.region ? user.region.trim() : "Not Specified";
+          if (region === "") region = "Not Specified";
+          regionCounts[region] = (regionCounts[region] || 0) + 1;
+        });
+
+        const labels = Object.keys(regionCounts);
+        const dataPoints = Object.values(regionCounts);
+
+        if (myRegionChart) {
+          myRegionChart.destroy();
+        }
+
+        if (allUsers.length === 0) {
+          return;
+        }
+
+        myRegionChart = new Chart(canvasCtx, {
+          type: 'pie',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Registered Users',
+              data: dataPoints,
+              backgroundColor: [
+                '#2e7d32', '#0369a1', '#b45309', '#991b1b', '#6d28d9', '#475569'
+              ],
+              borderWidth: 2,
+              borderColor: '#ffffff'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: { font: { family: 'Poppins', size: 11 }, boxWidth: 12 }
+              }
+            }
+          }
+        });
+      }
+
+      // Search engine trigger listener 
+      searchInput.addEventListener("input", (e) => {
+        const searchTerm = e.target.value.toLowerCase().trim();
+        const allUsers = JSON.parse(localStorage.getItem("hl_users")) || [];
+        
+        const filtered = allUsers.filter(user => {
+          const fullName = `${user.firstName || ''} ${user.lastName || ''}`.toLowerCase();
+          const email = user.email ? user.email.toLowerCase() : '';
+          return fullName.includes(searchTerm) || email.includes(searchTerm);
+        });
+        
+        renderUserRegistryTable(filtered);
+      });
+
+      // 3. Render User Help Requests & Contact Form Influx
+      function renderRequestsTable() {
+        const allRequests = JSON.parse(localStorage.getItem("hl_requests")) || [];
+        requestsCountEl.innerText = allRequests.length;
+
+        if (allRequests.length === 0) {
+          requestsTbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--grey, #666);">No pending help notifications or messages inside storage registry.</td></tr>`;
+          return;
+        }
+
+        requestsTbody.innerHTML = "";
+        allRequests.forEach((req) => {
+          const tr = document.createElement("tr");
+          const statusClass = req.status === "replied" ? "status-badge status-replied" : "status-badge status-pending";
+          
+          tr.innerHTML = `
+            <td><strong>${req.name}</strong><br><small style="color:#666;">${req.email}</small></td>
+            <td>
+              <p style="margin:0; font-size:0.85rem;">"${req.text}"</p>
+              ${req.reply ? `<p style="margin:5px 0 0 0; font-size:0.8rem; color:#166534;"><strong>Admin Response:</strong> ${req.reply}</p>` : ""}
+            </td>
+            <td><small>${req.date}</small></td>
+            <td><span class="${statusClass}">${req.status}</span></td>
+            <td>
+              <button class="btn-action btn-reply" data-id="${req.id}">
+                <i class="fas fa-reply"></i> Response
+              </button>
+            </td>
+          `;
+          requestsTbody.appendChild(tr);
+        });
+        attachRequestTableListeners();
+      }
+
+      // 4. Render Live Audit Logs Timelines box view
+      function renderAuditLogs() {
+        const allLogs = JSON.parse(localStorage.getItem("hl_logs")) || [];
+        if (allLogs.length === 0) {
+          logsBox.innerHTML = `<div class="log-item">No timeline interactions logged yet.</div>`;
+          return;
+        }
+
+        logsBox.innerHTML = "";
+        allLogs.forEach(log => {
+          const div = document.createElement("div");
+          div.className = "log-item";
+          div.innerHTML = `<span class="log-time">[${log.time}]</span> <span class="log-text">${log.action}</span>`;
+          logsBox.appendChild(div);
+        });
+      }
+
+      // 5. Attach Interactive Listeners for Drops and Replies
+      function attachUserTableListeners() {
+        document.querySelectorAll(".btn-delete").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const targetUser = btn.getAttribute("data-username");
+            if (targetUser === currentUser.username) {
+              alert("Operation Refused: You cannot delete your own active running session account.");
+              return;
+            }
+
+            if (confirm(`Are you completely sure you want to permanently delete user account @${targetUser}?`)) {
+              let allUsers = JSON.parse(localStorage.getItem("hl_users")) || [];
+              allUsers = allUsers.filter(u => u.username !== targetUser);
+              localStorage.setItem("hl_users", JSON.stringify(allUsers));
+              
+              pushSystemLog(`User record account @${targetUser} was deleted by admin.`);
+              
+              // Maintain search filtering array parameters visually if active
+              const searchTerm = searchInput.value.toLowerCase().trim();
+              if (searchTerm) {
+                const filtered = allUsers.filter(user => {
+                  const fullName = `${user.firstName || ''} ${user.lastName || ''}`.toLowerCase();
+                  return fullName.includes(searchTerm) || (user.email && user.email.toLowerCase().includes(searchTerm));
+                });
+                renderUserRegistryTable(filtered);
+              } else {
+                renderUserRegistryTable();
+              }
+              
+              // Dynamic graph updates
+              renderRegionChart();
+            }
+          });
+        });
+      }
+
+      function attachRequestTableListeners() {
+        document.querySelectorAll(".btn-reply").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const reqId = parseInt(btn.getAttribute("data-id"));
+            let allRequests = JSON.parse(localStorage.getItem("hl_requests")) || [];
+            const targetReq = allRequests.find(r => r.id === reqId);
+
+            const feedbackText = prompt(`Type your feedback response to send to ${targetReq.name}:`, targetReq.reply);
+            
+            if (feedbackText !== null && feedbackText.trim() !== "") {
+              targetReq.reply = feedbackText.trim();
+              targetReq.status = "replied";
+              
+              localStorage.setItem("hl_requests", JSON.stringify(allRequests));
+              pushSystemLog(`Admin sent feedback dispatch response to ${targetReq.email}`);
+              renderRequestsTable();
+            }
+          });
+        });
+      }
+
+      // Utility helper to push structural log timestamps entries inside LocalStorage arrays
+      function pushSystemLog(textString) {
+        const allLogs = JSON.parse(localStorage.getItem("hl_logs")) || [];
+        const now = new Date();
+        const timestamp = now.toISOString().replace('T', ' ').substring(0, 16);
+        
+        allLogs.unshift({ time: timestamp, action: textString });
+        localStorage.setItem("hl_logs", JSON.stringify(allLogs));
+        renderAuditLogs();
+      }
+
+      // Clear logs completely handler button hook
+      clearLogsBtn.addEventListener("click", () => {
+        if(confirm("Flush all historical security audit log records from localized browser tracking?")) {
+          localStorage.setItem("hl_logs", JSON.stringify([]));
+          renderAuditLogs();
+        }
+      });
+
+      // 

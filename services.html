@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Services & Programs | HopeLink Foundation</title>
+  
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* --- Base Fallbacks & Setup --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #f8f9fa;
+      color: #333;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section-padding {
+      padding: 60px 0;
+    }
+
+    /* --- Hero Layout Area --- */
+    .services-hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(46, 125, 50, 0.85)), 
+                  url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+      padding: 80px 0;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    @media (min-width: 1200px) {
+      .services-hero {
+        padding: 100px 0;
+      }
+    }
+
+    /* --- Services Feature Grid --- */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    @media (min-width: 768px) {
+      .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .service-card {
+      background: #ffffff;
+      padding: 35px 25px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,.04);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(46, 125, 50, 0.1);
+    }
+
+    .service-icon {
+      background-color: rgba(46, 125, 50, 0.1);
+      color: #2e7d32;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      transition: 0.3s ease;
+    }
+
+    .service-card:hover .service-icon {
+      background-color: #2e7d32;
+      color: #ffffff;
+    }
+
+    .service-card h3 {
+      font-size: 1.3rem;
+      color: #2e7d32;
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* --- Impact/Callout Banner Section --- */
+    .impact-banner {
+      background-color: #2e7d32;
+      color: #ffffff;
+      border-radius: 10px;
+      padding: 40px;
+      text-align: center;
+      margin-top: 50px;
+      box-shadow: 0 5px 15px rgba(0,0,0,.08);
+    }
+
+    .impact-banner h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    .impact-banner p {
+      max-width: 700px;
+      margin: 0 auto 25px auto;
+      opacity: 0.9;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .btn-white-action {
+      background-color: #ffffff;
+      color: #2e7d32;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-white-action:hover {
+      background-color: #f1f1f1;
+      transform: scale(1.02);
+    }
+
+    /* --- Phone Screen Responsiveness Refinements --- */
+    @media (max-width: 480px) {
+      .section-padding {
+        padding: 40px 0;
+      }
+      .service-card {
+        padding: 25px 15px;
+      }
+      .impact-banner {
+        padding: 30px 15px;
+      }
+      .impact-banner h2 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Navbar -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- 1. HERO HEADER -->
+  <header class="services-hero">
+    <div class="container">
+      <h1>Our Programs & Services</h1>
+      <p style="max-width: 600px; margin: 10px auto 0 auto; opacity: 0.9;">
+        Empowering vulnerable communities across Ghana through targeted support systems in key development sectors.
+      </p>
+    </div>
+  </header>
+
+  <!-- 2. CORE SERVICES FEATURES -->
+  <section class="section-padding">
+    <div class="container">
+      
+      <div style="text-align: center; margin-bottom: 20px;">
+        <h2>What We Do</h2>
+        <p style="color: #666; max-width: 500px; margin: 5px auto 0 auto;">Our initiatives translate support into measurable, generational transformations.</p>
+      </div>
+
+      <div class="services-grid">
+        
+        <!-- Program 1: Education -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3>Educational Support</h3>
+          <p>
+            Providing basic schools with crucial structural learning items, customized study books, and solar lamps to aid off-grid study hours for children in remote areas.
+          </p>
+        </div>
+
+        <!-- Program 2: Healthcare -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-heartbeat"></i>
+          </div>
+          <h3>Healthcare & Sanitation</h3>
+          <p>
+            Deploying rural medical testing units, executing sanitization supply drives, and presenting hygiene management modules to reduce critical water-borne hazards.
+          </p>
+        </div>
+
+        <!-- Program 3: Youth Literacy -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <h3>Digital Literacy Training</h3>
+          <p>
+            Hosting localized training modules designed to introduce the next generation to computing tools, software setups, basic text editors, and front-end design styles.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- 3. ACTION DRIVEN BANNER -->
+      <div class="impact-banner">
+        <h2>Want to Make a Lasting Difference?</h2>
+        <p>
+          Our community work relies heavily on the dedication of active field networks and partners. Step forward to either offer a custom resource contribution or apply to be a mentor today.
+        </p>
+        <a href="events.html" class="btn-white-action">Explore Active Campaigns</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Dynamic Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="main.js"></script>
+  <script src="navbar.js"></script>
+  <script src="footer.js"></script>
+
+</body>
+</html>
